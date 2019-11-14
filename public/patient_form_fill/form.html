@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>Patient Form</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <link rel="stylesheet" type="text/css" href="form.css"/>
+</head>
+<body>
+    <div>
+        <form id="patientForm" action="">
+            <h1>Patient's Form</h1>
+
+            <div style="overflow:auto;">
+                <div>
+                    <button style="float:left;" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button style="float:right;" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+            
+            
+            <div class="patient-form-fill-tab">
+                <h4>Registration Details:</h4>
+                <p><label>Date</label><input placeholder="Date" oninput="this.className = ''"></p>
+                <p><label>Place</label><input placeholder="Place" oninput="this.className = ''"></p>
+                <p><label>Registration Number</label><input placeholder="Registration Number" oninput="this.className = ''"></p>
+                <p><label>BOCW ID Number</label><input placeholder="BOCW ID Number" oninput="this.className = ''"></p>
+            </div>
+
+            <div class="patient-form-fill-tab">
+                <h4>Personal Details:</h4>
+                <p><label>Name of Beneficiary</label><input placeholder="Name" oninput="this.className = ''"></p>
+                <p><label>Aadhar Number</label><input placeholder="Aadhar Number" oninput="this.className = ''"></p>
+                <p><label>Date of Birth</label><input placeholder="Date of Birth" oninput="this.className = ''"></p>
+                <p><label>Age</label><input placeholder="Age" oninput="this.className = ''"></p>
+                <p><label>Sex</label><input placeholder="Sex" oninput="this.className = ''"></p>        
+            </div>
+
+            <div class="patient-form-fill-tab">
+                <h4>Contact Details:</h4>
+                <p><label>Address</label><input placeholder="Address" oninput="this.className = ''"></p>
+                <p><label>District</label><input placeholder="District" oninput="this.className = ''"></p>
+                <p><label>State</label><input placeholder="State" oninput="this.className = ''"></p>
+                <p><label>Country</label><input placeholder="India" oninput="this.className = ''"></p>        
+                <p><label>Pincode</label><input placeholder="Pincode" oninput="this.className = ''"></p>
+                <p><label>Contact Number</label><input placeholder="Contact Number" oninput="this.className = ''"></p>
+            </div>
+
+            <div class="patient-form-fill-tab">
+                <h4>Occupation Details:</h4>
+                <p><label>Present Occupation</label><input placeholder="" oninput="this.className = ''"></p>
+                <p><label>Duration of exposure</label><input placeholder="" oninput="this.className = ''"></p>
+            </div>
+
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="Save" onclick="save()">Save</button>
+                    <button type="button" id="Submit" onclick="submit()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="form.js"></script>
+</body>
+</html>

@@ -2,6 +2,7 @@ var currentTab = 0;
 showTab(currentTab);
 
 function showTab(_current_tab) {
+    currentTab = _current_tab
     var x = document.getElementsByClassName("patient-form-fill-tab");
     x[_current_tab].style.display = "block";
 
@@ -20,9 +21,7 @@ function showTab(_current_tab) {
 }
 
 function nextPrev(change) {
-  var x = document.getElementsByClassName("patient-form-fill-tab");
-  if (change == 1 && !validateForm()) return false;
-  x[currentTab].style.display = "none";
+  if (!validateForm()) return false;
   currentTab = currentTab + change;
   showTab(currentTab);
 }
@@ -50,10 +49,13 @@ function validateForm() {
 
 function fixStepIndicator(_current_tab) {
   var i, x = document.getElementsByClassName("step");
+  var tab = document.getElementsByClassName("patient-form-fill-tab");
   for (i = 0; i < x.length; i++) {
+    tab[i].style.display = "none";
     x[i].className = "step";
   }
   x[_current_tab].className = "step active";
+  tab[_current_tab].style.display = "block";
 }
 
 function submit(){

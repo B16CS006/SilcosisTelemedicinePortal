@@ -6,7 +6,7 @@
 </head>
 <body>
     <div>
-        <form id="patientForm" action="">
+        <form autocomplete="off" id="patientForm" action="">
             <h1>Patient's Form</h1>
 
             <div style="overflow:auto;">
@@ -17,44 +17,151 @@
             </div>
 
             <div style="text-align:center;margin-top:40px;">
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
+                <span class="step" onclick="showTab(0)"></span>
+                <span class="step" onclick="showTab(1)"></span>
+                <span class="step" onclick="showTab(2)"></span>
+                <span class="step" onclick="showTab(3)"></span>
+                <span class="step" onclick="showTab(4)"></span>
+                <span class="step" onclick="showTab(5)"></span>
             </div>
             
             
             <div class="patient-form-fill-tab">
-                <h4>Registration Details:</h4>
-                <p><label>Date</label><input placeholder="Date" oninput="this.className = ''"></p>
-                <p><label>Place</label><input placeholder="Place" oninput="this.className = ''"></p>
-                <p><label>Registration Number</label><input placeholder="Registration Number" oninput="this.className = ''"></p>
-                <p><label>BOCW ID Number</label><input placeholder="BOCW ID Number" oninput="this.className = ''"></p>
+                <h2>Registration Details:</h2>
+                <h3><label for="date">Date: </label></h3>
+                <input id="date" name="date" type="date">
+                
+                <h3><label for="place">Place: </label></h3>
+                <input id="place" name="place" placeholder="Place">
+                
+                <h3><label for="regNum">Registration Number: </label></h3>
+                <input id="regNum" name="regNum" placeholder="Registration Number">
+                
+                <h3><label for="BOCW">BOCW ID Number: </label></h3>
+                <input id="bocw" name="bocw" placeholder="BOCW ID Number">
             </div>
 
             <div class="patient-form-fill-tab">
-                <h4>Personal Details:</h4>
-                <p><label>Name of Beneficiary</label><input placeholder="Name" oninput="this.className = ''"></p>
-                <p><label>Aadhar Number</label><input placeholder="Aadhar Number" oninput="this.className = ''"></p>
-                <p><label>Date of Birth</label><input placeholder="Date of Birth" oninput="this.className = ''"></p>
-                <p><label>Age</label><input placeholder="Age" oninput="this.className = ''"></p>
-                <p><label>Sex</label><input placeholder="Sex" oninput="this.className = ''"></p>        
+                <h2>Personal Details:</h2>
+                <h3><label for="name">Name of Beneficiary: </label></h3>
+                <input id="name" name="name" placeholder="Name of Beneficiary" type="text">
+
+                <h3><label for="aadharNum">Aadhar Number: </label></h3>
+                <input id="aadharNum" name="aadharNum" placeholder="Aadhar Number" type="text">
+
+                <h3><label for="dob">Date of Birth: </label></h3>
+                <input id="dob" name="dob" type="date">
+
+                <h3><label for="age">Age: </label></h3>
+                <input min="0" id="age" name="age" placeholder="Age" type="number">
+
+                <h3><label for="weight">Weight: </label></h3>
+                <input min="0" id="weight" name="weight" placeholder="Age" type="number">
+                
+
+                <h3><label for="sex">Sex: </label></h3>
+                <select id="sex" name="sex">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select><br>
             </div>
 
             <div class="patient-form-fill-tab">
-                <h4>Contact Details:</h4>
-                <p><label>Address</label><input placeholder="Address" oninput="this.className = ''"></p>
-                <p><label>District</label><input placeholder="District" oninput="this.className = ''"></p>
-                <p><label>State</label><input placeholder="State" oninput="this.className = ''"></p>
-                <p><label>Country</label><input placeholder="India" oninput="this.className = ''"></p>        
-                <p><label>Pincode</label><input placeholder="Pincode" oninput="this.className = ''"></p>
-                <p><label>Contact Number</label><input placeholder="Contact Number" oninput="this.className = ''"></p>
+                <h2>Contact Details:</h2>
+
+                <h3><label for="address1">Address: </label></h3>
+                <input id="address1" name="address1" placeholder="Address">
+
+                <h3><label for="district">District: </label></h3>
+                <input id="district" name="district" placeholder="District">
+
+                <h3><label for="state">State: </label></h3>
+                <div class="autocomplete">
+                    <input id="state" name="state" placeholder="State">
+                </div>
+
+                <h3><label for="country">Country: </label></h3>
+                <input id="country" name="country" placeholder="Country">
+
+                <h3><label for="pincode">Pincode: </label></h3>
+                <input id="pincode" name="pincode" placeholder="Pincode">
+
+                <h3><label for="mobNum">Mobile Number: </label></h3>
+                <input id="mobNum" name="mobNum" placeholder="Mobile Number">
             </div>
 
             <div class="patient-form-fill-tab">
-                <h4>Occupation Details:</h4>
-                <p><label>Present Occupation</label><input placeholder="" oninput="this.className = ''"></p>
-                <p><label>Duration of exposure</label><input placeholder="" oninput="this.className = ''"></p>
+                <h2>Occupation Details:</h2>
+                <h3><label for="occupation">Present Occupation: </label></h3>
+                <select id="occupation" name="occupation">
+                    <option value="Mason">Mason</option>
+                    <option value="Beldar">Beldar</option>
+                    <option value="Stone Cutter">Stone Cutter</option>
+                    <option value="Crusher Helper">Crusher Helper</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input style="width: auto;" id="occupation_other" name="occupation_other" placeholder="specify" style="display: noe;"><br>
+
+                <h3><label>Duration of exposure(in years)</label></h3><br>
+                <label class="occupationHistory">
+                    <input style="width: 15;" type="checkbox"><span style="width: 150;">Building & Construction</span>
+                    <input min="0" style="width: 135;" type="number" id="occHis_constr" name="occHis_constr">
+                </label><br>
+                <label class="occupationHistory">
+                    <input style="width: 15;" type="checkbox"><span style="width: 150;">Mines</span>
+                    <input min="0" style="width: 135;" type="number" id="occHis_mine" name="occHis_mine">
+                </label><br>
+                <label class="occupationHistory">
+                    <input style="width: 15;" type="checkbox"><span style="width: 150;">Other</span>
+                    <input min="0" style="width: 135;" type="number" id="occHis_other" name="occHis_other">
+                </label><br>
+            </div>
+
+
+            <div class="patient-form-fill-tab">
+                <h2>Medical Details:</h2>
+                <h3><label for="smoking">History of Smoking: </label></h3>
+                <select id="smoking" name="smoking">
+                    <option value="Mild">Mild</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Heavy">Heavy</option>
+                </select>
+
+                <h3><label>Chief Complaints</label></h3><br>
+                <label class="chiefComplaints">
+                    <input style="width: 15;" type="checkbox"><span style="width: 150;">Cough</span>
+                </label><br>
+                <label class="chiefComplaints">
+                    <input style="width: 15;" type="checkbox"><span style="width: 150;">Sputum</span>
+                </label><br>
+                <label class="chiefComplaints">
+                    <input style="width: 15;" type="checkbox"><span style="width: 150;">Breathlessness</span>
+                </label><br>
+                <label class="chiefComplaints">
+                    <input style="width: 15;" type="checkbox"><span style="width: 150;">Blood in Sputum</span>
+                </label><br>
+                <label class="chiefComplaints">
+                    <input style="width: 15;" type="checkbox"><span style="width: 150;">Chest Pain</span>
+                </label><br>
+                <label class="chiefComplaints">
+                    <input style="width: 15;" type="checkbox"><span style="width: 150;">Other</span>
+                    <input style="width: 200;"  id="chiefComplaints_other" name="chiefComplaints_other">
+                </label><br>
+
+                <h3><label for="age">Total Duration of Suffering: </label></h3>
+                <input min="0" style="width: 135;" id="dur_suffer" name="dur_suffer" type="number">
+            </div>
+
+            <div class="patient-form-fill-tab">
+                <h2>Medical Details:</h2>
+                <h3><label for="photograph">Photograph: </label></h3>
+                <input id="photograph" name="photograph" type="file">
+
+                <h3><label for="x-ray-report">Chest X-Evaluation Report: </label></h3>
+                <input id="x-ray-report" name="x-ray-report" type="file">
+
+                <h3><label for="ct-scan-report">CT Scan Report: </label></h3>
+                <input id="ct-scan-report" name="ct-scan-report" type="file">
             </div>
 
             <div style="overflow:auto;">

@@ -41,8 +41,8 @@ button:hover {
 }
 
 .step {
-    height: 15px;
-    width: 15px;
+    height: 30px;
+    width: 30px;
     margin: 0 2px;
     background-color: #bbbbbb;
     border: none;

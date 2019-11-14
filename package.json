@@ -1,0 +1,22 @@
+{
+  "name": "sirohi-silicosis-telemedicine-data-collection-portal",
+  "version": "1.0.0",
+  "description": "Sirohi Silicosis Telemedicine Data Collection Portal",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "watch": "npx watchify ./public/main.js -o ./public/bundle.js"
+  },
+  "author": "IIT Jodhpur",
+  "dependencies": {
+    "express": "^4.17.1",
+    "simple-peer": "^9.6.2",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4",
+    "npx": "^10.2.0",
+    "package_name": "^1.0.2",
+    "watchify": "^3.11.1"
+  }
+}

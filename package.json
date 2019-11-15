@@ -4,7 +4,7 @@
   "description": "Sirohi Silicosis Telemedicine Data Collection Portal",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "watch": "npx watchify ./public/chat/chat.js -o ./public/chat/chat_bundle.js"
   },
   "author": "IIT Jodhpur",

@@ -110,25 +110,25 @@
                 <label>Duration of Exposure(in years)</label>
                 <div class="row justify-content-between">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="occupationHistoryConstr">
-                        <label class="form-check-label" for="occupationHistoryConstr">Building & Construction</label>
+                        <input class="form-check-input" type="checkbox" name="occHisConstrCheck" check={{ details.occupationHistory.construction.check }}>
+                        <label class="form-check-label">Building & Construction</label>
                     </div>
-                    <input type="text" class="form-control col-sm-4" name="occupationHistoryConstr" placeholder="Years" value="{{details.occupationHistory.construction}}">
+                    <input type="text" class="form-control col-sm-4" name="occHisConstrValue" placeholder="Years" value="{{details.occupationHistory.construction.value}}">
                 </div>
                 <div class="row justify-content-between">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="occupationHistoryMines">
-                        <label class="form-check-label" for="occupationHistoryMines">Mines</label>
+                        <input class="form-check-input" type="checkbox" name="occHisMinesCheck" check="{{details.occupationHistory.mines.check}}">
+                        <label class="form-check-label">Mines</label>
                     </div>
-                    <input type="text" class="form-control col-sm-4" name="occupationHistoryMines" placeholder="Years" value="{{details.occupationHistory.mines}}">
+                    <input type="text" class="form-control col-sm-4" name="occHisMinesValue" placeholder="Years" value="{{details.occupationHistory.mines.value}}">
                 </div>
                 <div class="row justify-content-between">
                     <div class="form-check col-sm-3">
-                        <input class="form-check-input" type="checkbox" value="" id="occupationHistoryOther">
-                        <label class="form-check-label" for="occupationHistoryOther">Other</label>
+                        <input class="form-check-input" type="checkbox" name="occHisOtherCheck" check="{{details.occupationHistory.other.check}}">
+                        <label class="form-check-label">Other</label>
                     </div>
-                    <input type="text" class="form-control col-sm-3" name="occupationHistoryOther" placeholder="Specify Occupation" value="{{details.occupationHistory.other}}">
-                    <input type="text" class="form-control col-sm-3" name="occupationHistoryOtherV" placeholder="Years" value="{{details.occupationHistory.otherV}}">
+                    <input type="text" class="form-control col-sm-3" name="occHisOtherOcc" placeholder="Specify Occupation" value="{{details.occupationHistory.other.occupation}}">
+                    <input type="text" class="form-control col-sm-3" name="occHisOtherValue" placeholder="Years" value="{{details.occupationHistory.other.value}}">
                 </div>
             </div>
         </div>

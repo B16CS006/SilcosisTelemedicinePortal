@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 var PatientDetailsSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true
+    },
     date: {
         type: Date
     },
@@ -32,7 +36,7 @@ var PatientDetailsSchema = new mongoose.Schema({
         type: String
     },
     address: {
-        type: String
+        type: Object
     },
     mobileNumber: {
         type: String
@@ -52,8 +56,17 @@ var PatientDetailsSchema = new mongoose.Schema({
     duration_suffer: {
         type: String
     },
+    photograph: {
+        type: Boolean
+    },
+    xRayReport: {
+        type: Boolean
+    },
+    ctScanReport: {
+        type: Boolean
+    }
 });
 
-const PatientDetails = mongoose.model("PatientDetails", UserSchema)
+const PatientDetails = mongoose.model("PatientDetails", PatientDetailsSchema)
 
 module.exports = PatientDetails

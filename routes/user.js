@@ -22,51 +22,24 @@ router.get('/logout', (req, res) => {
 
 
 router.post('/register', (req, res)=>{
-
     const {email, password, confirmPassword, name, phoneNumber, role } = req.body;
-    
     let errors = [];
 
-    if(!password || !name || !role){
-        errors.push({msg: 'Please fill in all fields'})
-    }
-
-    if(password !=  confirmPassword){
-        errors.push({msg: 'Passwords do not match'})
-    }
-
-    if(password.length < 6){
-        errors.push({msg: 'Password should be at least 6 characters'})
-    }
+    // Error Handling
+    if(!password || !name || !role){ errors.push({msg: 'Please fill in all fields'}) }
+    if(password !=  confirmPassword){ errors.push({msg: 'Passwords do not match'}) }
+    if(password.length < 6){ errors.push({msg: 'Password should be at least 6 characters'}) }
 
     if(errors.length > 0){
-        res.render('register', {
-            errors,
-            password,
-            confirmPassword,
-            name,
-            email,
-            phoneNumber,
-            role
-        })
+        res.render('register', {errors, password, confirmPassword, name, email, phoneNumber, role })
     }else{
         User.findOne({email: email})
             .then(user => {
                 if(user){
                     errors.push({msg: 'Email is alread registerd'});
-                    res.render('register', {
-                        errors,
-                        password,
-                        confirmPassword,
-                        name,
-                        email,
-                        phoneNumber,
-                        role
-                    })
+                    res.render('register', { errors, password, confirmPassword, name, email, phoneNumber, role })
                 }else{
-                    const newUser = new User({
-                        email, password, name, phoneNumber, role, uuid: 12
-                    })
+                    const newUser = new User({ email, password, name, phoneNumber, role, uuid: 12 })
                     console.log(newUser)
                     
                     bcrypt.genSalt(10, (err, salt) => 
@@ -86,15 +59,7 @@ router.post('/register', (req, res)=>{
             })
             .catch(err => {
                 errors.push({msg: 'Error: ' + err})
-                res.render('register', {
-                    errors,
-                    password,
-                    confirmPassword,
-                    name,
-                    email,
-                    phoneNumber,
-                    role
-                })
+                res.render('register', { errors, password, confirmPassword, name, email, phoneNumber, role })
             })
     }
 })

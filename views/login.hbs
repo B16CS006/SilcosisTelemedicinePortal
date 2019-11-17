@@ -1,0 +1,35 @@
+{{!-- <div>
+    <form action="/user/login" method="POST">
+        <h1>Login</h1>
+        <div>
+            <h3><label>Email: </label></h3>
+            <input name="email" type="text" placeholder="Email">
+            
+            <h3><label>Password: </label></h3>
+            <input name="password" placeholder="Password" type="text">
+        </div>
+
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div> --}}
+
+<div style="margin-top:100px; padding:20px;" class="container-fluid col-sm-6">
+    <h3 style="">Login</h3>
+    <form action="/user/login" method="POST" style="padding-top: 20px;">
+    {{> messages}}
+    <div class="form-group">
+        <label>Email address</label>
+        <input type="email" class="form-control" placeholder="Enter email" name="email" required>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+    </div>
+    <button style="" type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+    <p style="padding:10px">No Account? <a href="/user/register" style="color: red;">Register</a></p>
+</div>

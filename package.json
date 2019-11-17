@@ -4,15 +4,24 @@
   "description": "Sirohi Silicosis Telemedicine Data Collection Portal",
   "main": "main.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "watch": "npx watchify ./public/chat/chat.js -o ./public/chat/chat_bundle.js"
   },
   "author": "IIT Jodhpur",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
     "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.17.0",
+    "formidable": "^1.2.1",
+    "mongoose": "^5.7.11",
+    "multer": "^1.4.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "simple-peer": "^9.6.2",
-    "socket.io": "^2.2.0",
-    "mysql": "2.17.1"
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.4",

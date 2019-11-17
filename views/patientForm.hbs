@@ -1,0 +1,269 @@
+<div style="margin-top:100px; padding:20px;" class="container-fluid col-sm-8">
+    <h3>Patient's Form</h3>
+    <div style="overflow:auto;">
+        <div>
+            <button style="float:left;" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button style="float:right;" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+        </div>
+    </div>
+    <form action="/dashboard/patient-form" method="POST" style="padding-top: 20px;" enctype="multipart/form-data">
+        
+        <div class="patient-form-fill-tab">
+            <h5>Registration Details:</h5>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" class="form-control" name="date" value="{{details.date}}">
+            </div>
+            <div class="form-group">
+                <label>Place</label>
+                <input type="text" class="form-control" name="place" placeholder="Place" value="{{details.place}}">
+            </div>
+            <div class="form-group">
+                <label>Registration Number</label>
+                <input type="text" class="form-control" name="regNumber" placeholder="Registration Number" value="{{details.regNumber}}">
+            </div>
+            <div class="form-group">
+                <label>BOCW ID Number</label>
+                <input type="text" class="form-control" name="BOCW_ID_Number" placeholder="BOCW ID Number" value="{{details.BOCW_ID_Number}}">
+            </div>
+        </div>
+
+        <div class="patient-form-fill-tab">
+            <h5>Personal Details:</h5>
+            <div class="form-group">
+                <label>Name of Beneficiary</label>
+                <input type="text" class="form-control" name="name" placeholder="Name of Beneficiary" value="{{details.name}}">
+            </div>
+            <div class="form-group">
+                <label>Aadhar Number</label>
+                <input type="text" class="form-control" name="aadharNumber" placeholder="Aadhar Number" value="{{details.aadharNumber}}">
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Date of Birth</label>
+                    <input type="date" class="form-control" name="dob" placeholder="Date of Birth" value="{{details.dob}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Age</label>
+                    <input type="Number" class="form-control" name="age" placeholder="Age" value="{{details.age}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Weight</label>
+                    <input type="Number" class="form-control" name="weight" placeholder="Weight" value="{{details.weight}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Sex</label>
+                    <select class="form-control" name="sex">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="patient-form-fill-tab">
+            <h5>Contact Details:</h5>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-control" name="address" placeholder="Address" value="{{details.address.address}}">
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>District</label>
+                    <input type="text" class="form-control" name="district" placeholder="District" value="{{details.address.district}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>State</label>
+                    <input type="text" class="form-control" name="state" placeholder="State" value="{{details.address.state}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Country</label>
+                    <input type="text" class="form-control" name="country" placeholder="Country" value="{{details.address.country}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Pincode</label>
+                    <input type="text" class="form-control" name="pincode" placeholder="Pincode" value="{{details.address.pincode}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="text" class="form-control" name="mobileNumber" placeholder="Mobile Number" value="{{details.mobileNumber}}">
+            </div>
+        </div>
+
+        <div class="patient-form-fill-tab">
+            <h5>Occupation Details:</h5>
+            <div class="form-group">
+                <label>Present Occupation</label>
+                <div class="row justify-content-between">
+                    <select class="form-control col-sm-4" name="presentOccupation">
+                        <option value="Mason">Mason</option>
+                        <option value="Beldar">Beldar</option>
+                        <option value="Stone Cutter">Stone Cutter</option>
+                        <option value="Crusher Helper">Crusher Helper</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" class="form-control col-sm-4" name="presentOccupationOther" placeholder="Specify Occupation" value="{{details.presentOccupation.other}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Duration of Exposure(in years)</label>
+                <div class="row justify-content-between">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="occupationHistoryConstr">
+                        <label class="form-check-label" for="occupationHistoryConstr">Building & Construction</label>
+                    </div>
+                    <input type="text" class="form-control col-sm-4" name="occupationHistoryConstr" placeholder="Years" value="{{details.occupationHistory.construction}}">
+                </div>
+                <div class="row justify-content-between">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="occupationHistoryMines">
+                        <label class="form-check-label" for="occupationHistoryMines">Mines</label>
+                    </div>
+                    <input type="text" class="form-control col-sm-4" name="occupationHistoryMines" placeholder="Years" value="{{details.occupationHistory.mines}}">
+                </div>
+                <div class="row justify-content-between">
+                    <div class="form-check col-sm-3">
+                        <input class="form-check-input" type="checkbox" value="" id="occupationHistoryOther">
+                        <label class="form-check-label" for="occupationHistoryOther">Other</label>
+                    </div>
+                    <input type="text" class="form-control col-sm-3" name="occupationHistoryOther" placeholder="Specify Occupation" value="{{details.occupationHistory.other}}">
+                    <input type="text" class="form-control col-sm-3" name="occupationHistoryOtherV" placeholder="Years" value="{{details.occupationHistory.otherV}}">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="patient-form-fill-tab">
+            <h5>Medical Details:</h5>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>History of Smoking</label>
+                    <select class="form-control" name="historyOfSmoking">
+                        <option value="Mild">Mild</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Heavy">Heavy</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Total Duration of Suffering</label>
+                    <input type="Number" class="form-control" name="duration_suffer" placeholder="Duration of Suffering" value="{{details.duration_suffer}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Chief Complaints</label>
+                <div class="row">
+                    <select class="form-control col-sm-4" name="chiefComplaints">
+                        <option value="Cough">Cough</option>
+                        <option value="Sputum">Sputum</option>
+                        <option value="Breathlessness">Breathlessness</option>
+                        <option value="Blood in Sputum">Blood in Sputum</option>
+                        <option value="Chest Pain">Chest Pain</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input style="margin-left: 30px;" type="text" class="form-control col-sm-4" name="chiefComplaintsOther" placeholder="Chief Complaints" value="{{details.chiefComplaintsOther}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="patient-form-fill-tab">
+            <h5>Medical Details:</h5>
+            <div class="form-group">
+                <label>Photograph</label>
+                <input type="file" class="form-control" name="photograph" value="{{details.photograph}}">
+            </div>
+            <div class="form-group">
+                <label>Chest X-Evaluation Report</label>
+                <input type="file" class="form-control" name="xRayReport" value="{{details.xRayReport}}">
+            </div>
+            <div class="form-group">
+                <label>CT Scan Report</label>
+                <input type="file" class="form-control" name="ctScanReport" value="{{details.ctScanReport}}">
+            </div>
+        </div>
+
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button type="button" id="Save" onclick="save()">Save</button>
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:40px;">
+            <span class="step" onclick="showTab(0)"></span>
+            <span class="step" onclick="showTab(1)"></span>
+            <span class="step" onclick="showTab(2)"></span>
+            <span class="step" onclick="showTab(3)"></span>
+            <span class="step" onclick="showTab(4)"></span>
+            <span class="step" onclick="showTab(5)"></span>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    var currentTab = 0;
+    showTab(currentTab);
+
+    function showTab(_current_tab) {
+        currentTab = _current_tab
+        var x = document.getElementsByClassName("patient-form-fill-tab");
+        x[_current_tab].style.display = "block";
+
+        if (_current_tab == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        
+        if (_current_tab == (x.length - 1)) {
+            document.getElementById("nextBtn").style.display = "none";
+        } else {
+            document.getElementById("nextBtn").style.display = "inline";
+        }
+        fixStepIndicator(_current_tab)
+    }
+
+    function nextPrev(change) {
+        if (!validateForm()) return false;
+        currentTab = currentTab + change;
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        return true;
+    }
+
+    function fixStepIndicator(_current_tab) {
+        var i, x = document.getElementsByClassName("step");
+        var tab = document.getElementsByClassName("patient-form-fill-tab");
+        for (i = 0; i < x.length; i++) {
+            tab[i].style.display = "none";
+            x[i].className = "step";
+        }
+        x[_current_tab].className = "step active";
+        tab[_current_tab].style.display = "block";
+    }
+
+</script>
+
+<style>
+    .patient-form-fill-tab {
+        display: none;
+    }
+
+    .step {
+        height: 30px;
+        width: 30px;
+        margin: 0 2px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+    }
+
+    .step.active {
+        opacity: 1;
+    }
+</style>

@@ -1,0 +1,69 @@
+{{!-- <div>
+    {{> messages}}
+    <form action="/user/register" method="POST">
+        <h1>Register</h1>
+        
+        <div>
+            <h5><label>Email: </label></h5>
+            <input name="email" type="text" placeholder="Email" value="{{email}}">
+
+            <h5><label>Password: </label></h5>
+            <input name="password" placeholder="Password" type="text" value="{{password}}">
+
+            <h5><label>Confirm Password: </label></h5>
+            <input name="confirmPassword" placeholder="Confirm Password" type="text" value="{{confirmPassword}}">
+
+            <h5><label>Name: </label></h5>
+            <input name="name" type="text" placeholder="Name" value="{{name}}">
+
+            <h5><label>Role: </label></h5>
+            <input name="role" type="text" placeholder="Role" value="{{role}}">
+
+            <h5><label>Phone Number: </label></h5>
+            <input name="phoneNumber" type="text" placeholder="Phone Number" value="{{phoneNumber}}">
+        </div>
+
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div> --}}
+
+
+
+<div style="margin-top:100px; padding:20px;" class="container-fluid col-sm-6">
+    <h3 style="">Register</h3>
+    <form action="/user/register" method="POST" style="padding-top: 20px;">
+        {{> messages}}
+        <div class="form-group">
+            <label>Email address</label>
+            <input type="email" class="form-control" placeholder="Enter email" name="email" value="{{email}}" required>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label>Password</label>
+                <input type="password" class="form-control" placeholder="Password" name="password" value="{{password}}" required>
+            </div>
+            <div class="form-group col-sm-6">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" placeholder="Confirm Password" name="confirmPassword" value="{{confirmPassword}}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="name" class="form-control" placeholder="Enter Name" name="name" value="{{name}}" required>
+        </div>
+        <div class="form-group">
+            <label>Role</label>
+            <input type="text" class="form-control" placeholder="Enter role" name="role" value="{{role}}" required>
+        </div>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" class="form-control" placeholder="Phone Number" name="phoneNumber" value="{{phoneNumber}}" >
+        </div>
+        <button style="" type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+    <p style="padding:10px">Already have a Account? <a href="/user/login" style="color: red;">Login</a></p>
+</div>

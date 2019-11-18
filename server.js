@@ -1,6 +1,7 @@
 
 const port = process.env.PORT || 3000
 
+// Connecting to Database
 require("./model")
 
 const express = require('express')
@@ -57,7 +58,14 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/index'))
 app.use('/user', require('./routes/user'))
 app.use('/dashboard', require('./routes/dashboard'))
+app.use('/chat', require('./routes/chat'))
 
+app.use('/bundle', express.static(__dirname + '/js/bundle'))
+
+
+
+
+/////////////////////////////////////////////////////////////////////////
 //  app.use(express.static(publicFolder))
 
 // const http = require('http').Server(app)
@@ -115,6 +123,7 @@ app.use('/dashboard', require('./routes/dashboard'))
 //     if(err) throw err;
 //     console.log('Connection established with database');
 // })
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.listen(port, () => {
     console.log(`Active on ${port} port.`)

@@ -1,11 +1,11 @@
-<div style="margin-top:100px; padding:20px;" class="container-fluid col-xs-12 col-sm-10 col-md-8 col-lg-6">
+<div style="margin-top:100px; margin-bottom:100px; padding:20px;" class="container-fluid col-xs-12 col-sm-10 col-md-8 col-lg-6">
     <h3>Patient's Form</h3>
-    <div style="overflow:auto;">
+    {{!-- <div style="overflow:auto;">
         <div>
             <button style="float:left;" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
             <button style="float:right;" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
         </div>
-    </div>
+    </div> --}}
     <form action="/dashboard/patient-form" method="POST" style="padding-top: 20px;" enctype="multipart/form-data">
         
         <div class="patient-form-fill-tab">
@@ -189,18 +189,18 @@
             </div>
         </div>
 
-        <div style="text-align:center;margin-top:40px;">
+        {{!-- <div style="text-align:center;margin-top:40px;">
             <span class="step" onclick="showTab(0)"></span>
             <span class="step" onclick="showTab(1)"></span>
             <span class="step" onclick="showTab(2)"></span>
             <span class="step" onclick="showTab(3)"></span>
             <span class="step" onclick="showTab(4)"></span>
             <span class="step" onclick="showTab(5)"></span>
-        </div>
+        </div> --}}
     </form>
 </div>
 
-
+{{!-- 
 <script>
     var currentTab = 0;
     showTab(currentTab);
@@ -266,4 +266,4 @@
     .step.active {
         opacity: 1;
     }
-</style>
+</style> --}}

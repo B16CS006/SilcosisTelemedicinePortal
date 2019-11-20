@@ -1,0 +1,154 @@
+<div style="margin-top:100px; margin-bottom:100px; padding:20px;" class="container-fluid col-xs-12">
+    <h3>Patient's Form</h3>
+    <div class="accordion" id="patientDetails">
+        <div class="card">
+            <div class="card-header" id="patientRegistrationDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientRegistrationDetail"
+                        aria-expanded="true" aria-controls="patientRegistrationDetail">
+                        Registration Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientRegistrationDetail" class="collapse" aria-labelledby="patientRegistrationDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                        Date: {{{patientDetails.date}}}
+                    </div>
+                    <div class="col-sm-12">
+                        Place: {{{patientDetails.place}}}
+                    </div>
+                    <div class="col-sm-12">
+                        Registration Number: {{{patientDetails.regNumber}}}
+                    </div>
+                    <div class="col-sm-12">
+                        BOCW ID Number: {{{patientDetails.BOCW_ID_Number}}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header" id="patientPersonalDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientPersonalDetail"
+                        aria-expanded="true" aria-controls="patientPersonalDetail">
+                        Personal Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientPersonalDetail" class="collapse" aria-labelledby="patientPersonalDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                        Name of Beneficiary: {{{patientDetails.name}}}
+                    </div>
+                    <div class="col-sm-12">
+                        Aadhar Number: {{{patientDetails.aadharNumber}}}
+                    </div>
+                    <div class="col-sm-6">
+                        Date of Birth: {{{patientDetails.dob}}}
+                    </div>
+                    <div class="col-sm-6">
+                        Age: {{{patientDetails.age}}}
+                    </div>
+                    <div class="col-sm-6">
+                        Weight: {{{patientDetails.weight}}}
+                    </div>
+                    <div class="col-sm-6">
+                        Sex: {{{patientDetails.sex}}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header" id="patientContactDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientContactDetail"
+                        aria-expanded="true" aria-controls="patientContactDetail">
+                        Contact Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientContactDetail" class="collapse" aria-labelledby="patientContactDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                        Address: {{{patientDetails.address.address}}}
+                    </div>
+                    <div class="col-sm-6">
+                        District: {{{patientDetails.address.district}}}
+                    </div>
+                    <div class="col-sm-6">
+                        State: {{{patientDetails.address.state}}}
+                    </div>
+                    <div class="col-sm-6">
+                        Country: {{{patientDetails.address.country}}}
+                    </div>
+                    <div class="col-sm-6">
+                        Pincode: {{{patientDetails.address.pincode}}}
+                    </div>
+                    <div class="col-sm-12">
+                        Mobile Number: {{{patientDetails.mobileNumber}}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header" id="patientOccupationDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientOccupationDetail"
+                        aria-expanded="true" aria-controls="patientOccupationDetail">
+                        Occupation Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientOccupationDetail" class="collapse" aria-labelledby="patientOccupationDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                        Present Occupation: {{{patientDetails.presentOccupation}}}
+                    </div>
+                    <div class="col-sm-12">
+                        Duratoin of Exposure:<br>
+                        Building & Construction: {{{details.occupationHistory.construction.value}}}<br>
+                        Mines: {{{details.occupationHistory.construction.value}}}<br>
+                        {{{details.occupationHistory.other.occupation}}}: {{{details.occupationHistory.other.value}}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header" id="patientMedicalDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientMedicalDetail"
+                        aria-expanded="true" aria-controls="patientMedicalDetail">
+                        Medical Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientMedicalDetail" class="collapse" aria-labelledby="patientMedicalDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                        History of Smoking: {{{patientDetails.historyOfSmoking}}}
+                    </div>
+                    <div class="col-sm-12">
+                        Total Duration of Suffering: {{{patientDetails.duration_suffer}}}
+                    </div>
+                    <div class="col-sm-12">
+                        Chief Complaints: {{{patientDetails.chiefComplaints}}}
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-link" type="button">
+                            Download {{{patientDetails.chiefComplaints}}}
+                        </button>
+                        <button class="btn btn-link" type="button">
+                            Download {{{patientDetails.chiefComplaints}}}
+                        </button>
+                        <button class="btn btn-link" type="button">
+                            Download {{{patientDetails.chiefComplaints}}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -8,7 +8,7 @@
             <button id="chatConnectButton">Connect</button>
         </div>
         <div class="col-sm-12">
-            <div id="messages" style="overflow: auto;" class="card"></div>
+            <div id="messages" class="col-sm-12 col-md-8 col-lg-6 "></div>
             <input type="text" id="writeMessage" placeholder="Write message...">
             <button id="sendMessage">Send</button>
         </div>
@@ -23,6 +23,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-12">
+            {{> patientDetails}}
+        </div>
     </div>
 </div>
 <script src="/bundle/chat.js"></script>
@@ -31,5 +34,36 @@
 <style>
     #messages{
         height: 300px;
+        overflow: auto;
+        justify-content: center;
+    }
+
+    .message{
+        max-width: 60%;
+        margin: 4px 4px 0px 4px;
+        padding: 5px 10px 5px 10px;
+        clear: both;
+    }
+
+    .myMessage{
+        background-color: #b3ffb3;
+        float: right;
+    }
+
+    .otherMessage{
+        background-color: #b3c6ff;
+        float: left;
+    }
+
+    .connection{
+        background-color: #ffffb3;
+        margin: auto;
+        text-align: center;
+    }
+
+    .unknowMessage{
+        background-color: #ffafbf;
+        margin: auto;
+        text-align: center;
     }
 </style>

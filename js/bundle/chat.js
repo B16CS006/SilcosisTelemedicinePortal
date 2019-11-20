@@ -14,26 +14,34 @@ var element = function(id){ return document.getElementById(id) }
 
 var messagesDiv = element('messages')
 
-var appendMessage = function(message, whom){
+var appendMessage = function(data){
+    console.log(data)
     var messageDiv = document.createElement('div')
-    messageDiv.setAttribute('class', 'card-block');
-    messageDiv.textContent = message
-    messageDiv.style.margin = "4px 4px 0px 4px"
-    messageDiv.style.padding = "5px 10px 5px 10px"
-    messageDiv.style.display = 'block'
-    if(whom === 'myMessage'){
-        messageDiv.style.backgroundColor = '#b3ffb3'
-        // messageDiv.style.color = 'blue'
-        messageDiv.style.cssFloat = 'right'
+    messageDiv.textContent = data.message
+    if(data.who === 'myMessage'){
+        messageDiv.setAttribute('class', 'card myMessage message')
+    }else if(data.who === 'otherMessage'){
+        messageDiv.setAttribute('class', 'card otherMessage message')
+    }else if(data.who === '_connection_'){
+        messageDiv.setAttribute('class', 'card connection message')
     }else{
-        messageDiv.style.backgroundColor = '#b3c6ff'
-        // messageDiv.style.color = 'green'
-        messageDiv.style.cssFloat = 'left'
+        messageDiv.setAttribute('class', 'card unknownMessage message')
     }
 
     messagesDiv.appendChild(messageDiv)
     messagesDiv.scrollTop = messagesDiv.scrollHeight
 }
+
+// appendMessage({message: 'connected', who:'myMessage'})
+// appendMessage({message: 'connected', who:'myMessage'})
+// appendMessage({message: 'connected', who:'otherMessage'})
+// appendMessage({message: 'connected', who:'otherMessage'})
+// appendMessage({message: 'connected', who:'otherMessage'})
+// appendMessage({message: 'connected', who:'myMessage'})
+// appendMessage({message: 'connected', who:'otherMessage'})
+// appendMessage({message: 'connected', who:'_connection_'})
+// appendMessage({message: 'connectedasdfljkas;ldkjfa;lskjdf;alskdjfa;lksdjfa;lskdjfa;slkdjf;alksdjfa;lksdjf;aslkjdf;aklsjda;sldkjfa;lskdjf;alskjdfa;lskjdf;alksjdf;alskjdf;alksjdfjfkdlskjflsdkfjlskdfjlsdfjlskfjskdfoiiiiiiiiiiiiiiioo', who:'otherMessage'})
+// appendMessage({message: 'connectedasdfljkas;ldkjfa;lskjdf;alskdjfa;lksdjfa;lskdjfa;slkdjf;alksdjfa;lksdjf;aslkjdf;aklsjda;sldkjfa;lskdjf;alskjdfa;lskjdf;alksjdf;alskjdf;alksjdfjfkdlskjflsdkfjlskdfjlsdfjlskfjskdfoiiiiiiiiiiiiiiioo', who:'myMessage'})
 
 let peer
 var Peer = require('simple-peer')
@@ -71,41 +79,45 @@ var startComunication = function(peer){
     console.log('startCommunication')
     var messageInput = element('writeMessage')
     
+    element('chatConnectButton').addEventListener('click', () => {
+        var otherChatID = JSON.parse(element('otherChatID').value)
+        peer.signal(JSON.stringify(otherChatID))
+    })
+
     peer.on('signal', function(data){
         console.log('signal: ' + JSON.stringify(data))
         element('myChatID').value = JSON.stringify(data)
     })
     
-    peer.on('data', function(data){
-        console.log('received: ' + data)
-        appendMessage(data, 'otherMessage')
+    peer.on('data', function(message){
+        console.log('received: ' + message)
+        appendMessage({message:message, who:'otherMessage'})
     })
 
-    element('chatConnectButton').addEventListener('click', () => {
-        var otherChatID = JSON.parse(element('otherChatID').value)
-        peer.signal(JSON.stringify(otherChatID))
-    })
-    
-    element('sendMessage').addEventListener('click', () => {
-        sendMessage()
-    })
-
-    messageInput.addEventListener('keydown', (event) => {
-        if(event.which == 13 && event.shiftKey == false){
+    peer.on('connect', () => {
+        console.log('connected')
+        
+        element('sendMessage').addEventListener('click', () => {
             sendMessage()
-        }
+        })
+    
+        messageInput.addEventListener('keydown', (event) => {
+            if(event.which == 13 && event.shiftKey == false){
+                sendMessage()
+            }
+        })
+        appendMessage({message:'Connected', who:'_connection_'})
     })
 
     var sendMessage = function(){
-        console.log('new function');
-        
-        let message = messageInput.value
+        let message = messageInput.value.trim()
         if(message !== '' && message !== null && message !== undefined){
             messageInput.value = ''
             peer.send(message)
-            appendMessage(message, 'myMessage')
+            appendMessage({message:message, who:'myMessage'})
+        }else{
+            messageInput.value = ''
         }
-        console.log('Send: ' + message)
     }
  }
 },{"simple-peer":13}],2:[function(require,module,exports){

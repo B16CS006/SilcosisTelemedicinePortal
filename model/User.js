@@ -1,34 +1,59 @@
-const mongoose = require('mongoose');
+const connection = require('../database/connection')
+const bcrypt = require('bcryptjs')
 
-var UserSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true
+function User(){}
+
+User.prototype = {
+
+    findById: function(id, callback){
+        let sql = 'SELECT * FROM User WHERE userID = ?';
+        connection.query(sql, id, (err, result) => {
+            if(err){
+                console.log(err)
+                callback(err, null);
+                return;
+            }
+            callback(null, result[0])
+        })
     },
-    password: {
-        type: String,
-        required: true
+
+    find : function(email, callback){
+        let sql = 'SELECT * FROM User WHERE email = ?';
+        connection.query(sql, email, (err, result) => {
+            if(err){
+                console.log(err)
+                callback(err, null);
+                return;
+            }
+            callback(null, result[0])
+        })
     },
-    name: {
-        type: String,
-        required: true
-    },
-    role:{
-        type:String, 
-        required: true
-    },
-    phoneNumber:{
-        type: String
-    },
-    uuid:{
-        type: String
-    },
-    date:{
-        type: Date,
-        default: Date.now
+
+    create : function(data, callback){
+        this.find(data.email, (err, user)=>{
+            if(err){
+                callback(err, null)
+                return
+            }else if(user){
+                callback({code: 'User Alread Existed'}, null)
+                return
+            }else{
+                let password = data.password;
+                data.password = bcrypt.hashSync(password, 10);;
+                let newUser = { email: data.email, password: data.password, name: data.name, role: data.role, mobileNumber: data.mobileNumber }
+                let sql = 'INSERT INTO User SET ?';
+                connection.query(sql, newUser, (err, _) => {
+                    if(err){
+                        callback(err, false)
+                        return
+                    }else{
+                        callback(null, true)
+                        return
+                    }
+                })
+            }
+        })
     }
-});
+}
 
-const User = mongoose.model("User", UserSchema)
-
-module.exports = User
+module.exports = User;

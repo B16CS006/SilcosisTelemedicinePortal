@@ -1,15 +1,27 @@
 <div style="margin-top:100px; margin-bottom:100px; padding:20px;" class="container-fluid col-xs-12 col-sm-10 col-md-8 col-lg-6">
     <h3>Patient's Form</h3>
-    {{!-- <div style="overflow:auto;">
+    <div style="overflow:auto;">
         <div>
             <button style="float:left;" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
             <button style="float:right;" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
         </div>
-    </div> --}}
+    </div>
     <form action="/dashboard/patient-form" method="POST" style="padding-top: 20px;" enctype="multipart/form-data">
         
         <div class="patient-form-fill-tab">
             <h5>Registration Details:</h5>
+            <div style="display: none;" class="form-group">
+                <label>FormID</label>
+                <input type="hidden" class="form-control" name="formID" value="{{details.formID}}">
+            </div>
+            <div style="display: none;" class="form-group">
+                <label>Created</label>
+                <input type="hidden" class="form-control" name="created" value="{{details.created}}">
+            </div>
+            <div style="display: none;" class="form-group">
+                <label>Updated</label>
+                <input type="hidden" class="form-control" name="updated" value="{{details.updated}}">
+            </div>
             <div class="form-group">
                 <label>Date</label>
                 <input type="date" class="form-control" name="date" value="{{details.date}}">
@@ -24,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label>BOCW ID Number</label>
-                <input type="text" class="form-control" name="BOCW_ID_Number" placeholder="BOCW ID Number" value="{{details.BOCW_ID_Number}}">
+                <input type="text" class="form-control" name="BOCWIDNumber" placeholder="BOCW ID Number" value="{{details.BOCWIDNumber}}">
             </div>
         </div>
 
@@ -65,24 +77,24 @@
             <h5>Contact Details:</h5>
             <div class="form-group">
                 <label>Address</label>
-                <input type="text" class="form-control" name="address" placeholder="Address" value="{{details.address.address}}">
+                <input type="text" class="form-control" name="address" placeholder="Address" value="{{details.address}}">
             </div>
             <div class="row">
                 <div class="form-group col-sm-6">
                     <label>District</label>
-                    <input type="text" class="form-control" name="district" placeholder="District" value="{{details.address.district}}">
+                    <input type="text" class="form-control" name="district" placeholder="District" value="{{details.district}}">
                 </div>
                 <div class="form-group col-sm-6">
                     <label>State</label>
-                    <input type="text" class="form-control" name="state" placeholder="State" value="{{details.address.state}}">
+                    <input type="text" class="form-control" name="state" placeholder="State" value="{{details.state}}">
                 </div>
                 <div class="form-group col-sm-6">
                     <label>Country</label>
-                    <input type="text" class="form-control" name="country" placeholder="Country" value="{{details.address.country}}">
+                    <input type="text" class="form-control" name="country" placeholder="Country" value="{{details.country}}">
                 </div>
                 <div class="form-group col-sm-6">
                     <label>Pincode</label>
-                    <input type="text" class="form-control" name="pincode" placeholder="Pincode" value="{{details.address.pincode}}">
+                    <input type="text" class="form-control" name="pincode" placeholder="Pincode" value="{{details.pincode}}">
                 </div>
             </div>
             <div class="form-group">
@@ -103,32 +115,32 @@
                         <option value="Crusher Helper">Crusher Helper</option>
                         <option value="Other">Other</option>
                     </select>
-                    <input type="text" class="form-control col-sm-4" name="presentOccupationOther" placeholder="Specify Occupation" value="{{details.presentOccupation.other}}">
+                    <input type="text" class="form-control col-sm-4" name="presentOccupationOther" placeholder="Specify Occupation" value="{{details.presentOccupationOther}}">
                 </div>
             </div>
             <div class="form-group">
                 <label>Duration of Exposure(in years)</label>
                 <div class="row justify-content-between">
-                    <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" name="occHisConstrCheck" check={{ details.occupationHistory.construction.check }}>
+                    <div class="form-check">
+                        {{!-- <input class="form-check-input" type="checkbox" name="occHisConstrCheck" check={{ details.occupationHistory.construction.check }}> --}}
                         <label class="form-check-label">Building & Construction</label>
                     </div>
-                    <input type="text" class="form-control col-sm-4" name="occHisConstrValue" placeholder="Years" value="{{details.occupationHistory.construction.value}}">
+                    <input type="text" class="form-control col-sm-4" name="occHisConstruction" placeholder="Years" value="{{details.occHisConstruction}}">
                 </div>
                 <div class="row justify-content-between">
-                    <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" name="occHisMinesCheck" check="{{details.occupationHistory.mines.check}}">
+                    <div class="form-check">
+                        {{!-- <input class="form-check-input" type="checkbox" name="occHisMinesCheck" check="{{details.occupationHistory.mines.check}}"> --}}
                         <label class="form-check-label">Mines</label>
                     </div>
-                    <input type="text" class="form-control col-sm-4" name="occHisMinesValue" placeholder="Years" value="{{details.occupationHistory.mines.value}}">
+                    <input type="text" class="form-control col-sm-4" name="occHisMines" placeholder="Years" value="{{details.occHisMines}}">
                 </div>
                 <div class="row justify-content-between">
-                    <div class="form-check col-sm-3">
-                        <input class="form-check-input" type="checkbox" name="occHisOtherCheck" check="{{details.occupationHistory.other.check}}">
+                    <div class="form-check">
+                        {{!-- <input class="form-check-input" type="checkbox" name="occHisOtherCheck" check="{{details.occupationHistory.other.check}}"> --}}
                         <label class="form-check-label">Other</label>
                     </div>
-                    <input type="text" class="form-control col-sm-3" name="occHisOtherOcc" placeholder="Specify Occupation" value="{{details.occupationHistory.other.occupation}}">
-                    <input type="text" class="form-control col-sm-3" name="occHisOtherValue" placeholder="Years" value="{{details.occupationHistory.other.value}}">
+                    <input type="text" class="form-control col-sm-3" name="occHisOtherOccupation" placeholder="Specify Occupation" value="{{details.occHisOtherOccupation}}">
+                    <input type="text" class="form-control col-sm-3" name="occHisOther" placeholder="Years" value="{{details.occHisOther}}">
                 </div>
             </div>
         </div>
@@ -189,18 +201,18 @@
             </div>
         </div>
 
-        {{!-- <div style="text-align:center;margin-top:40px;">
+        <div style="text-align:center;margin-top:40px;">
             <span class="step" onclick="showTab(0)"></span>
             <span class="step" onclick="showTab(1)"></span>
             <span class="step" onclick="showTab(2)"></span>
             <span class="step" onclick="showTab(3)"></span>
             <span class="step" onclick="showTab(4)"></span>
             <span class="step" onclick="showTab(5)"></span>
-        </div> --}}
+        </div>
     </form>
 </div>
 
-{{!-- 
+
 <script>
     var currentTab = 0;
     showTab(currentTab);
@@ -266,4 +278,4 @@
     .step.active {
         opacity: 1;
     }
-</style> --}}
+</style>

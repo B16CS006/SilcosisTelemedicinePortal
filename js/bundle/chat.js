@@ -32,17 +32,6 @@ var appendMessage = function(data){
     messagesDiv.scrollTop = messagesDiv.scrollHeight
 }
 
-// appendMessage({message: 'connected', who:'myMessage'})
-// appendMessage({message: 'connected', who:'myMessage'})
-// appendMessage({message: 'connected', who:'otherMessage'})
-// appendMessage({message: 'connected', who:'otherMessage'})
-// appendMessage({message: 'connected', who:'otherMessage'})
-// appendMessage({message: 'connected', who:'myMessage'})
-// appendMessage({message: 'connected', who:'otherMessage'})
-// appendMessage({message: 'connected', who:'_connection_'})
-// appendMessage({message: 'connectedasdfljkas;ldkjfa;lskjdf;alskdjfa;lksdjfa;lskdjfa;slkdjf;alksdjfa;lksdjf;aslkjdf;aklsjda;sldkjfa;lskdjf;alskjdfa;lskjdf;alksjdf;alskjdf;alksjdfjfkdlskjflsdkfjlskdfjlsdfjlskfjskdfoiiiiiiiiiiiiiiioo', who:'otherMessage'})
-// appendMessage({message: 'connectedasdfljkas;ldkjfa;lskjdf;alskdjfa;lksdjfa;lskdjfa;slkdjf;alksdjfa;lksdjf;aslkjdf;aklsjda;sldkjfa;lskdjf;alskjdfa;lskjdf;alksjdf;alskjdf;alksjdfjfkdlskjflsdkfjlskdfjlsdfjlskfjskdfoiiiiiiiiiiiiiiioo', who:'myMessage'})
-
 let peer
 var Peer = require('simple-peer')
 

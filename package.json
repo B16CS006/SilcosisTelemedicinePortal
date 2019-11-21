@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "watch": "npx watchify ./public/chat/chat.js -o ./public/chat/chat_bundle.js",
-    "watch1": "npx watchify ./js/chat.js -o ./js/bundle/chat.js"
+    "chat": "npx watchify ./js/chat.js -o ./js/bundle/chat.js",
+    "calls": "npx watchify ./js/calls.js -o ./js/bundle/calls.js"
   },
   "author": "IIT Jodhpur",
   "dependencies": {

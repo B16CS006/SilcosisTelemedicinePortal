@@ -14,10 +14,6 @@ router.get('/patient-form', ensureAuthenticated, (req, res) => {
     res.render('patientForm')
 })
 
-router.get('/calls', ensureAuthenticated, (req, res) => {
-    res.render('calls')
-})
-
 router.post('/patient-form', ensureAuthenticated, (req, res) => {
     let formidable = require('formidable')
     let fs = require('fs')

@@ -37,10 +37,12 @@ var patientFormTable = 'CREATE TABLE PatientForm(formID int UNSIGNED NOT NULL AU
                         + ', updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP'
                         + ', created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(formID))'
 
+var callsInfoTable = 'CREATE TABLE Calls(callID int UNSIGNED NOT NULL AUTO_INCREMENT, myID VARCHAR(255) NOT NULL, otherID VARCHAR(255) NOT NULL, created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, type VARCHAR(10) NOT NULL, code VARCHAR(500) NOT NULL, PRIMARY KEY(callID))';
+
 
 var execQuery = function(sql){
     connection.query(sql, (err, result) => {
-        if (err) console.log(err.code);
+        if (err) console.log(err);
         else console.log('Table Created: ');
     })
 }
@@ -48,6 +50,7 @@ var execQuery = function(sql){
 var createTables = function(){
     execQuery(userSqlTable)
     execQuery(patientFormTable)
+    execQuery(callsInfoTable)
 }
 
 var createDatabase = function(){

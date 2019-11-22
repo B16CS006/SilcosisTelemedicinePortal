@@ -1,5 +1,7 @@
 const express = require('express');
 
+const execQuery = require('../database/connection')
+
 // const { ensureAuthenticated } = require('../config/auth')
 
 const router = express.Router();
@@ -41,12 +43,13 @@ var patientFormTable = 'CREATE TABLE PatientForm(formID int UNSIGNED NOT NULL AU
 var callsInfoTable = 'CREATE TABLE Calls(callID int UNSIGNED NOT NULL AUTO_INCREMENT, myID VARCHAR(255) NOT NULL, otherID VARCHAR(255) NOT NULL, created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, type VARCHAR(10) NOT NULL, code VARCHAR(8000) NOT NULL, PRIMARY KEY(callID))';
 
 var createTables = function(){
-    execQuery(userSqlTable)
-    execQuery(patientFormTable)
-    execQuery(callsInfoTable)
+    execQuery(userSqlTable, null, (error, result) => {console.log(error, result)})
+    execQuery(patientFormTable, null, (error, result) => {console.log(error, result)})
+    execQuery(callsInfoTable, null, (error, result) => {console.log(error, result)})
 }
 
 var createDatabase = function(){
+    console.log('Creating Database')
     createTables()
 }
 
@@ -55,8 +58,12 @@ router.get('/createDatabase', (req, res) => {
 })
 
 router.post('/createDatabase', (req, res) => {
-    console.log(req.body)
-    createDatabase()
+    if(req.body.password == 'somerandompasswordIITJodhpur'){
+        createDatabase()
+        res.send('done')
+    }else{
+        res.send('Incorrect Password')
+    }
 })
 
 module.exports = router

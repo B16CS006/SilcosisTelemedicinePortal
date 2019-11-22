@@ -94,6 +94,20 @@ router.post('/getIncoming', ensureAuthenticated, (req, res) => {
     })
 })
 
+router.post('/disconnect', ensureAuthenticated, (req, res) => {
+    let body = JSON.parse(req.body.data)
+    let data = {myID: req.user.email, otherID: body.otherID}
+    
+    CallsModel.deleteById(data, (err, result) => {
+        if(err){
+            res.send({error: err})
+            return
+        }else{
+            res.send({message: 'Successfully deleted'})
+        }
+    })
+})
+
 
 
 module.exports = router

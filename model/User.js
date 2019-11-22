@@ -1,4 +1,4 @@
-const connection = require('../database/connection')
+const execQuery = require('../database/connection')
 const bcrypt = require('bcryptjs')
 
 function User(){}
@@ -7,7 +7,7 @@ User.prototype = {
 
     findById: function(id, callback){
         let sql = 'SELECT * FROM User WHERE userID = ?';
-        connection.query(sql, id, (err, result) => {
+        execQuery(sql, id, (err, result) => {
             if(err){
                 console.log(err)
                 callback(err, null);
@@ -19,7 +19,7 @@ User.prototype = {
 
     find : function(email, callback){
         let sql = 'SELECT * FROM User WHERE email = ?';
-        connection.query(sql, email, (err, result) => {
+        execQuery(sql, email, (err, result) => {
             if(err){
                 console.log(err)
                 callback(err, null);
@@ -42,7 +42,7 @@ User.prototype = {
                 data.password = bcrypt.hashSync(password, 10);;
                 let newUser = { email: data.email, password: data.password, name: data.name, role: data.role, mobileNumber: data.mobileNumber }
                 let sql = 'INSERT INTO User SET ?';
-                connection.query(sql, newUser, (err, _) => {
+                execQuery(sql, newUser, (err, _) => {
                     if(err){
                         callback(err, false)
                         return

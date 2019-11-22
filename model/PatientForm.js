@@ -1,4 +1,4 @@
-const connection = require('../database/connection')
+const execQuery = require('../database/connection')
 
 function PatientForm() { }
 
@@ -6,7 +6,7 @@ PatientForm.prototype = {
 
     findById: function (id, callback) {
         let sql = 'SELECT * FROM PatientForm WHERE formID = ?';
-        connection.query(sql, id, (err, result) => {
+        execQuery(sql, id, (err, result) => {
             if (err) {
                 console.log(err)
                 callback(err, null);
@@ -18,7 +18,7 @@ PatientForm.prototype = {
 
     findByBOCW_ID: function (BOCW_ID_Number, callback) {
         let sql = 'SELECT * FROM User WHERE BOCWIDNumber = ?';
-        connection.query(sql, BOCW_ID_Number, (err, result) => {
+        execQuery(sql, BOCW_ID_Number, (err, result) => {
             if (err) {
                 console.log(err)
                 callback(err, null);
@@ -63,7 +63,7 @@ PatientForm.prototype = {
             created: data.created,
         }
         let sql = 'INSERT INTO PatientForm SET ?';
-        connection.query(sql, newForm, (err, result) => {
+        execQuery(sql, newForm, (err, result) => {
             if (err) {
                 callback(err, null)
                 return
@@ -81,7 +81,7 @@ PatientForm.prototype = {
         }
 
         let sql = 'UPDATE PatientForm SET ? WHERE formID = ?';
-        connection.query(sql, [data, data.formID], (err, result) => {
+        execQuery(sql, [data, data.formID], (err, result) => {
             if(err){
                 callback(err, null)
                 return
@@ -95,7 +95,7 @@ PatientForm.prototype = {
     deleteFormById: function(formID, callback){
         if(formID){
             let sql = 'DELETE FROM PatientForm WHERE formID = ?';
-            connection.query(sql, formID, (err, result) => {
+            execQuery(sql, formID, (err, result) => {
                 if(err){
                     callback(err, null)
                     return
@@ -112,7 +112,7 @@ PatientForm.prototype = {
     deleteFormByBOCWID: function(BOCWIDNumber, callback){
         if(formID){
             let sql = 'DELETE FROM PatientForm WHERE BOCWIDNumber = ?';
-            connection.query(sql, BOCWIDNumber, (err, result) => {
+            execQuery(sql, BOCWIDNumber, (err, result) => {
                 if(err){
                     callback(err, null)
                     return

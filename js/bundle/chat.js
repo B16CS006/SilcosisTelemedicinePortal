@@ -48,6 +48,8 @@ function createCall(data){
         if(!request.error){
             checkReply.disabled = false
             checkReply.style.display = 'inline'
+            disconnectCall.disabled = false
+            disconnectCall.style.display = 'inline'
             checkReply.addEventListener('click', () => {
                 checkReply.disabled = true;
                 loadDoc('POST', '/calls/getReply', {otherID: otherEmailId}, true, (request) => {
@@ -71,6 +73,24 @@ function replyToCall(data){
         }
     })
 }
+
+function connectionDisconnect(){
+    console.log('Disconnecting...')
+    loadDoc('POST', '/calls/disconnect', {otherID: otherEmailId}, true, (request) => {
+        console.log(request.responseText)
+        window.location.replace("/dashboard")
+    })
+}
+
+disconnectCall.addEventListener('click', () => {
+    connectionDisconnect()
+})
+
+// window.addEventListener('beforeunload', function (e) {
+//     e.preventDefault();
+//     connectionDisconnect()
+//     e.returnValue = '';
+// });
 
 // var status = element('chatStatus')
 // var statusDefault = status.textContent
@@ -111,7 +131,11 @@ var Peer = require('simple-peer')
 navigator.mediaDevices.getUserMedia({video: true, audio: true})
 .then(stream => {
     const video = document.querySelector('video')
-    video.srcObject = stream // to user can see himself
+    if ('srcObject' in video) {
+        video.srcObject = stream
+    } else {
+        video.src = window.URL.createObjectURL(stream)
+    }
     video.play()
 
     peer = new Peer({
@@ -123,7 +147,11 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
     peer.on('stream', function(stream){
         let video = document.createElement('video')
         document.querySelector('#otherVideo').appendChild(video)
-        video.srcObject = stream
+        if ('srcObject' in video) {
+            video.srcObject = stream
+        } else {
+            video.src = window.URL.createObjectURL(stream)
+        }
         video.class  = 'embed-responsive-item' 
         video.play()
     })
@@ -197,6 +225,15 @@ var startComunication = function(peer){
             }
         })
         appendMessage({message:'Connected', who:'_connection_'})
+    })
+
+    peer.on('close', () => {
+        connectionDisconnect()
+    })
+
+    peer.on('error', (err) => {
+        console.log(err)
+        connectionDisconnect()
     })
 
     var sendMessage = function(){

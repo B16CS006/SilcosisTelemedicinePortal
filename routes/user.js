@@ -7,11 +7,20 @@ const router = express.Router();
 const UserModel = new User()
 
 router.get('/register', (req, res) => {
-    res.render("register")
+    if(req.isAuthenticated()){
+        res.redirect('/dashboard') 
+        // window.location.replace('/dashboard') 
+    }else{
+        res.render("register")
+    }
 })
 
 router.get('/login', (req, res) => {
-    res.render("login")
+    if(req.isAuthenticated()){
+        res.redirect('/dashboard')   
+    }else{
+        res.render("login")
+    }
 })
 
 router.get('/logout', (req, res) => {

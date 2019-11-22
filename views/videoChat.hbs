@@ -1,4 +1,4 @@
-<div class="container-fluid col-sm-12 col-md-10 col-lg-8">
+<div class="container-fluid col-sm-12 col-md-10 col-lg-8" id="videoChat">
     <h3 class="text-center">Chat</h3>
     <div class="row">
         <div id="chatStatus" class="col-sm-12"></div>
@@ -6,6 +6,9 @@
             <input id="myChatID" placeholder="My ID">
             <input id="otherChatID" placeholder="Other ID">
             <button id="chatConnectButton">Connect</button>
+        </div>
+        <div class="col-sm-12">
+            <button id="checkReply" disabled>Check Reply</button>
         </div>
         <div class="col-sm-12">
             <div id="messages" class="col-sm-12 col-md-8 col-lg-6 "></div>
@@ -28,7 +31,10 @@
         </div>
     </div>
 </div>
-<script src="/bundle/chat.js"></script>
+{{!-- <script>
+    var user = '{{ user }}'
+</script> --}}
+<script defer src="/bundle/chat.js"></script>
 {{!-- <script src="/socket.io/socket.io.js"></script> --}}
 
 <style>

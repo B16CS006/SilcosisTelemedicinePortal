@@ -1,9 +1,85 @@
-<div>
+<div style="margin-top:100px; padding:20px;" class="container-fluid col-xs-12 col-sm-8 col-md-8 col-lg-5">
     <div>
-        <input type="email" placeholder="Write email" id="email">
-        <button id="callButton">Call</button>
+        {{!-- <input type="email" id="otherEmailId" placeholder="Write email" id="email"> --}}
+        <a href="/chat/#init" class="btn btn-secondary">Make A Call</a>
     </div>
     <div id="outgoingCall"></div>
-    <div id="incomingCall"></div>
+    <label>Incoming Calls</label>
+    <div class="row" id="incomingCalls"></div>
 </div>
-<script src="/bundle/calls.js"></script>
+<script>
+    var user = '{{ user }}'
+    var element = function(id){ return document.getElementById(id) }
+    
+    var incomingCallsDiv = document.getElementById('incomingCalls')
+
+    reloadIncomingCall()
+    
+    function loadDoc(method, url, data, isasync, callback){
+        let xmlHttpReq
+        if (window.XMLHttpRequest) { xmlHttpReq = new XMLHttpRequest(); } // code for modern browsers
+        else { xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP"); } // code for old IE browsers
+
+        xmlHttpReq.onreadystatechange = function() {
+            if (this.readyState === 4) {
+            callback(this);
+            }
+        };
+
+        xmlHttpReq.open(method, url, isasync);
+        xmlHttpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlHttpReq.send(data);
+    }
+
+    function getIncomingCalls(data, callback){
+        console.log('getting incoming calls')
+        loadDoc('POST', '/calls/getIncoming', data, true, (request) => {
+            {{!-- console.log(request.responseText) --}}
+            callback(JSON.parse(request.responseText))
+        })
+    }
+
+    function reloadIncomingCall(){
+
+        getIncomingCalls(null, (incommingCalls) => {
+            for( incommingCall of incommingCalls.code){
+                console.log(incommingCall)
+                var incommingCallDiv = document.createElement('div')
+                incommingCallDiv.setAttribute('class', 'card')
+                incommingCallDiv.style.margin = '10px'
+
+                var cardBody = document.createElement('div')
+                cardBody.setAttribute('class', 'card-body')
+
+                var title = document.createElement('p')
+                title.innerHTML = incommingCall.myID
+
+                var created = document.createElement('p')
+                created.innerHTML = incommingCall.created
+
+                var connect = document.createElement('a')
+                connect.setAttribute('class', 'btn btn-primary')
+                connect.innerHTML = 'Accept'
+                connect.style.color = 'white'
+                connect.href = '/chat?otherID=' + incommingCall.myID + '&code=' + incommingCall.code
+
+                cardBody.appendChild(title)
+                cardBody.appendChild(created)
+                cardBody.appendChild(connect)
+
+                incommingCallDiv.appendChild(cardBody)
+
+                incomingCallsDiv.appendChild(incommingCallDiv)
+            }
+        })
+    }
+
+    function deleteChild(component){
+        if(typeof component === 'string'){
+            var e = document.getElementById(component);
+            e.innerHTML = '';
+        }else{
+            component.innerHTML = '';
+        }
+    }
+</script>

@@ -1,9 +1,10 @@
 const express = require('express');
+const { ensureAuthenticated } = require('../config/auth')
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.render("videoChat", {id: "123"})
+router.get('/', ensureAuthenticated, (req, res) => {
+    res.render("videoChat", {})
 })
 
 module.exports = router

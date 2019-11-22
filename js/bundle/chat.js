@@ -1,5 +1,68 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var element = function(id){ return document.getElementById(id) }
+var checkReply = element('checkReply')
+
+let otherEmailId, code
+
+if(location.hash === '#init'){
+    otherEmailId = prompt("Please enter email address of user you want to communicate", "test1@gmail.com").trim();
+    if(!otherEmailId){
+        // element('videoChat').innerHTML = 'Please Enter a Valid Email of other User'
+        // throw 'Invalid Email'
+    }
+}else{
+    urlParams = new URLSearchParams(window.location.search)
+    if(!urlParams.has('code')){
+        // element('videoChat').innerHTML = 'Code not found'
+        // throw 'Code not found'
+    }
+    if(!urlParams.has('otherID')){
+        // element('videoChat').innerHTML = 'user ID for other user not found.'
+        // throw 'otherID not found'
+    }
+    code = urlParams.get('code')
+    otherEmailId = urlParams.get('otherID')
+}
+
+function loadDoc(method, url, data, isasync, callback){
+    let xmlHttpReq
+    if (window.XMLHttpRequest) { xmlHttpReq = new XMLHttpRequest(); } // code for modern browsers
+    else { xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP"); } // code for old IE browsers
+
+    xmlHttpReq.onreadystatechange = function() {
+        if (this.readyState === 4) {
+          callback(this);
+        }
+     };
+
+    xmlHttpReq.open(method, url, isasync);
+    xmlHttpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlHttpReq.send('data=' + JSON.stringify(data));
+}
+
+function createCall(data){
+    loadDoc('POST', '/calls/initCall', data, true, (request) => {
+        console.log(request.responseText)
+        if(!request.error){
+            checkReply.disabled = false
+            checkReply.addEventListener('click', () => {
+                checkReply.disabled = true;
+                loadDoc('POST', '/calls/getReply', {otherID: otherEmailId}, true, (request) => {
+                    getReply(JSON.parse(request.responseText))
+                })
+            })
+        }else{
+            console.log('error', request)
+        }
+    })
+}
+
+function replyToCall(data){
+    // console.log('Replying to the call...')
+    loadDoc('POST', '/calls/replyCall', data, true, (request) => {
+        console.log(request.responseText)
+    })
+}
 
 // var status = element('chatStatus')
 // var statusDefault = status.textContent
@@ -32,6 +95,8 @@ var appendMessage = function(data){
     messagesDiv.scrollTop = messagesDiv.scrollHeight
 }
 
+// console.log(otherEmailId, code)
+
 let peer
 var Peer = require('simple-peer')
 
@@ -46,7 +111,7 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
         trickle: false,
         stream: stream
     })
-    
+
     peer.on('stream', function(stream){
         let video = document.createElement('video')
         document.querySelector('#otherVideo').appendChild(video)
@@ -54,7 +119,9 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
         video.class  = 'embed-responsive-item' 
         video.play()
     })
+
     startComunication(peer)
+    
 }).catch(err => {
     // document.write(err)
     peer = new Peer({
@@ -65,16 +132,39 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
 })
 
 var startComunication = function(peer){
+
     console.log('startCommunication')
     var messageInput = element('writeMessage')
+
+    if(location.hash === '#init'){
+
+    }else{
+        if(code){
+            console.log(code)
+            peer.signal(code)
+            element('otherChatID').value = code
+        }
+    }
     
-    element('chatConnectButton').addEventListener('click', () => {
-        var otherChatID = JSON.parse(element('otherChatID').value)
-        peer.signal(JSON.stringify(otherChatID))
-    })
+    // element('chatConnectButton').addEventListener('click', () => {
+    //     var otherChatID = JSON.parse(element('otherChatID').value)
+    //     console.log(typeof JSON.stringify(otherChatID))
+    //     peer.signal(JSON.stringify(otherChatID))
+    // })
 
     peer.on('signal', function(data){
-        console.log('signal: ' + JSON.stringify(data))
+        let newData = {
+            otherID: otherEmailId,
+            code: JSON.stringify(data)
+        }
+
+        if(location.hash === '#init'){
+            console.log('initiating call to ' + otherEmailId)
+            createCall(newData)
+        }else{
+            console.log('connecting to ' + otherEmailId)
+            replyToCall(newData)
+        }
         element('myChatID').value = JSON.stringify(data)
     })
     
@@ -108,7 +198,22 @@ var startComunication = function(peer){
             messageInput.value = ''
         }
     }
- }
+}
+
+function getReply(responseText){
+    if(responseText.error){
+        console.log('error', responseText)
+        checkReply.disabled = false
+    }else if(responseText.code){
+        console.log(responseText.message)
+        element('otherChatID').value = responseText.code
+        console.log(responseText.code)
+        peer.signal(responseText.code)
+    }else{
+        console.log('Unknown error in getReply.')
+        checkReply.disabled = false
+    }
+}
 },{"simple-peer":13}],2:[function(require,module,exports){
 'use strict'
 

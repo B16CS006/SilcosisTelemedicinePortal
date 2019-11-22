@@ -5,6 +5,18 @@ function Calls(){}
 
 Calls.prototype = {
 
+    findReply: function(data, callback) {
+        let sql = 'SELECT * FROM Calls Where myID = ? AND otherID = ? AND type = "reply"'
+        connection.query(sql, [data.myID, data.otherID], (err, result) => {
+            if(err){
+                console.log(err)
+                callback(err, null);
+                return;
+            }
+            callback(null, result[0])
+        })
+    },
+
     findById: function(id, callback){
         let sql = 'SELECT * FROM Calls WHERE myID = ? AND otherID = ?';
         connection.query(sql, [id.myID, id.otherID], (err, result) => {
@@ -17,9 +29,9 @@ Calls.prototype = {
         })
     },
 
-    findCalls : function(myID, callback){
-        let sql = 'SELECT * FROM Calls WHERE myID = ?';
-        connection.query(sql, myID, (err, result) => {
+    findIncomingCalls : function(userID, callback){
+        let sql = 'SELECT * FROM Calls WHERE otherID = ? AND type = "init"';
+        connection.query(sql, userID, (err, result) => {
             if(err){
                 console.log(err)
                 callback(err, null);

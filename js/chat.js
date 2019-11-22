@@ -1,23 +1,25 @@
 var element = function(id){ return document.getElementById(id) }
 var checkReply = element('checkReply')
+var disconnectCall = element('disconnect')
 
 let otherEmailId, code
 
 if(location.hash === '#init'){
     otherEmailId = prompt("Please enter email address of user you want to communicate", "test1@gmail.com").trim();
     if(!otherEmailId){
-        // element('videoChat').innerHTML = 'Please Enter a Valid Email of other User'
-        // throw 'Invalid Email'
+        element('videoChat').innerHTML = 'Please Enter a Valid Email of other User'
+        throw 'Invalid Email'
     }
 }else{
     urlParams = new URLSearchParams(window.location.search)
+    console.log('urlParms', urlParams)
     if(!urlParams.has('code')){
-        // element('videoChat').innerHTML = 'Code not found'
-        // throw 'Code not found'
+        element('videoChat').innerHTML = 'Code not found'
+        throw 'Code not found'
     }
     if(!urlParams.has('otherID')){
-        // element('videoChat').innerHTML = 'user ID for other user not found.'
-        // throw 'otherID not found'
+        element('videoChat').innerHTML = 'user ID for other user not found.'
+        throw 'otherID not found'
     }
     code = urlParams.get('code')
     otherEmailId = urlParams.get('otherID')
@@ -44,6 +46,7 @@ function createCall(data){
         console.log(request.responseText)
         if(!request.error){
             checkReply.disabled = false
+            checkReply.style.display = 'inline'
             checkReply.addEventListener('click', () => {
                 checkReply.disabled = true;
                 loadDoc('POST', '/calls/getReply', {otherID: otherEmailId}, true, (request) => {
@@ -60,6 +63,11 @@ function replyToCall(data){
     // console.log('Replying to the call...')
     loadDoc('POST', '/calls/replyCall', data, true, (request) => {
         console.log(request.responseText)
+        if(!request.responseText.error){
+            disconnectCall.disabled = true
+            disconnectCall.innerHTML = 'Waiting...'
+            disconnectCall.style.display = 'inline'
+        }
     })
 }
 
@@ -141,7 +149,7 @@ var startComunication = function(peer){
         if(code){
             console.log(code)
             peer.signal(code)
-            element('otherChatID').value = code
+            // element('otherChatID').value = code
         }
     }
     
@@ -164,7 +172,7 @@ var startComunication = function(peer){
             console.log('connecting to ' + otherEmailId)
             replyToCall(newData)
         }
-        element('myChatID').value = JSON.stringify(data)
+        // element('myChatID').value = JSON.stringify(data)
     })
     
     peer.on('data', function(message){
@@ -173,6 +181,9 @@ var startComunication = function(peer){
     })
 
     peer.on('connect', () => {
+        disconnectCall.innerHTML = 'Disconnect'
+        disconnectCall.disabled = false
+        disconnectCall.style.display = 'inline'
         console.log('connected')
         
         element('sendMessage').addEventListener('click', () => {
@@ -204,8 +215,9 @@ function getReply(responseText){
         console.log('error', responseText)
         checkReply.disabled = false
     }else if(responseText.code){
+        checkReply.style.display = 'none'
         console.log(responseText.message)
-        element('otherChatID').value = responseText.code
+        // element('otherChatID').value = responseText.code
         console.log(responseText.code)
         peer.signal(responseText.code)
     }else{

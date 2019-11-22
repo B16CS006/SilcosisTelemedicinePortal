@@ -1,7 +1,11 @@
-<h1 class="mt-4">Dashboard</h1>
-{{> messages}}
-<p class="lead mb-3">Welcome {{user.name}}</p>
-<a href="/dashboard/patient-form" class="btn btn-secondary">Patient Form</a>
-<a href="/chat" class="btn btn-secondary">Chat</a>
-<a href="/calls" class="btn btn-secondary">Calls</a>
-<a href="/user/logout" class="btn btn-secondary">Logout</a>
+<div style="margin-top:100px; padding:20px;" class="container-fluid col-xs-12 col-sm-8 col-md-8 col-lg-5">
+    <h1 class="mt-4">Dashboard</h1>
+    {{> messages}}
+    <div class="row">
+        <p class="lead mb-3">Welcome {{user.name}}</p>
+        <a href="/dashboard/patient-form" class="btn btn-secondary btn-block">Patient Form</a>
+        <a href="/calls" class="btn btn-secondary btn-block">Calls Informations</a>
+        <a href="/chat/#init" class="btn btn-secondary btn-block">Make A Call</a>
+        <a href="/user/logout" class="btn btn-secondary btn-block">Logout</a>
+    </div>
+</div>

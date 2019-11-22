@@ -64,7 +64,7 @@ connection.connect((err) => {
         return
     }
     console.log('Database connected as id: ' + connection.threadId);
-    // createDatabase()
+    createDatabase()
 })
 
 module.exports = connection

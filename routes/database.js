@@ -7,7 +7,8 @@ const execQuery = require('../database/connection')
 const router = express.Router();
 
 var userSqlTable = 'CREATE TABLE User(userID int UNSIGNED NOT NULL AUTO_INCREMENT, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, role VARCHAR(50) NOT NULL, mobileNumber VARCHAR(15), created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(userID))';
-var patientFormTable = 'CREATE TABLE PatientForm(formID int UNSIGNED NOT NULL AUTO_INCREMENT' 
+var patientFormTable = 'CREATE TABLE PatientForm(formID int UNSIGNED NOT NULL AUTO_INCREMENT'
+                        + ', userID VARCHAR(255) NOT NULL'
                         + ', date TIMESTAMP'
                         + ', place VARCHAR(255)'
                         + ', regNumber VARCHAR(255)'
@@ -53,6 +54,11 @@ var createDatabase = function(){
     createTables()
 }
 
+var deleteCalls = function() {
+    console.log('deleting database')
+    execQuery('DELETE FROM table Calls', null, (error, result) => {console.log(error, result)})
+}
+
 router.get('/createDatabase', (req, res) => {
     res.render('createDatabase')
 })
@@ -60,6 +66,15 @@ router.get('/createDatabase', (req, res) => {
 router.post('/createDatabase', (req, res) => {
     if(req.body.password == 'somerandompasswordIITJodhpur'){
         createDatabase()
+        res.send('done')
+    }else{
+        res.send('Incorrect Password')
+    }
+})
+
+router.post('/deleteCalls', (req, res) => {
+    if(req.body.password == 'somerandompasswordIITJodhpur'){
+        deleteCalls()
         res.send('done')
     }else{
         res.send('Incorrect Password')

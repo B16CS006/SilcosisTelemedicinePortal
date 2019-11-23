@@ -58,6 +58,7 @@ app.use('/dashboard', require('./routes/dashboard'))
 app.use('/chat', require('./routes/chat'))
 app.use('/calls', require('./routes/calls'))
 app.use('/database', require('./routes/database'))
+app.use('/patientForm', require('./routes/patientForm'))
 
 app.use('/bundle', express.static(__dirname + '/js/bundle'))
 

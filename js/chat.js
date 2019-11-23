@@ -1,8 +1,9 @@
 var element = function(id){ return document.getElementById(id) }
 var checkReply = element('checkReply')
 var disconnectCall = element('disconnect')
+var formNumberInput = element('formNumber')
 
-let otherEmailId, code
+let otherEmailId, code, patientDetails, patientDetail
 
 if(location.hash === '#init'){
     otherEmailId = prompt("Please enter email address of user you want to communicate", "test1@gmail.com").trim();
@@ -209,11 +210,13 @@ var startComunication = function(peer){
     })
 
     peer.on('connect', () => {
+        console.log('connected')
         disconnectCall.innerHTML = 'Disconnect'
         disconnectCall.disabled = false
         disconnectCall.style.display = 'inline'
-        console.log('connected')
         
+        fetchForms()
+
         element('sendMessage').addEventListener('click', () => {
             sendMessage()
         })
@@ -252,13 +255,42 @@ function getReply(responseText){
         console.log('error', responseText)
         checkReply.disabled = false
     }else if(responseText.code){
-        checkReply.style.display = 'none'
         console.log(responseText.message)
-        // element('otherChatID').value = responseText.code
         console.log(responseText.code)
-        peer.signal(responseText.code)
+        if(responseText.code === '' && responseText === undefined && responseText === null){
+            console.code('Code is not there.')
+        }else{
+            peer.signal(responseText.code)
+        }
+        checkReply.style.display = 'none'
+        // element('otherChatID').value = responseText.code
     }else{
         console.log('Unknown error in getReply.')
         checkReply.disabled = false
     }
+}
+
+function fetchForms(){
+    console.log('Fetching form...')
+    loadDoc('POST', '/patientForm/getAll', otherEmailId, true, (request) => {
+        console.log(request.responseText)
+        patientDetails = request.responseText.result
+        patientDetail = patientDetails[0]
+
+        formNumberInput.addEventListener('keydown', (event) => {
+            if(event.which == 13 && event.shiftKey == false){
+                var formNumber = parseInt(formNumberInput.value)
+                if(!isNaN(formNumber)){
+                    if(formNumber >= patientDetails.length){
+                        formNumber = patientDetails.length - 1;
+                    }
+                    patientDetail = patientDetails[formNumber]
+                }
+            }
+        })
+    })
+}
+
+function handleForm(){
+    
 }

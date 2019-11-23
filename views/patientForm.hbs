@@ -1,13 +1,15 @@
-<div style="margin-top:100px; margin-bottom:100px; padding:20px;" class="container-fluid col-xs-12 col-sm-10 col-md-8 col-lg-6">
+<div style="margin-top:100px; margin-bottom:100px; padding:20px; background-color: #b3ffb3;"
+    class="container-fluid col-xs-12 col-sm-10 col-md-8 col-lg-6">
     <h3>Patient's Form</h3>
     <div style="overflow:auto;">
         <div>
-            <button style="float:left;" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-            <button style="float:right;" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            <button class="btn btn-outline-primary btn-sm" style="float:left;" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button class="btn btn-outline-primary btn-sm" style="float:right;" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
         </div>
     </div>
-    <form action="/dashboard/patient-form" method="POST" style="padding-top: 20px;" enctype="multipart/form-data">
-        
+    <form id="patientform" action="/patientForm/create" method="POST" style="padding-top: 20px;"
+        enctype="multipart/form-data">
+
         <div class="patient-form-fill-tab">
             <h5>Registration Details:</h5>
             <div style="display: none;" class="form-group">
@@ -32,11 +34,13 @@
             </div>
             <div class="form-group">
                 <label>Registration Number</label>
-                <input type="text" class="form-control" name="regNumber" placeholder="Registration Number" value="{{details.regNumber}}">
+                <input type="text" class="form-control" name="regNumber" placeholder="Registration Number"
+                    value="{{details.regNumber}}">
             </div>
             <div class="form-group">
                 <label>BOCW ID Number</label>
-                <input type="text" class="form-control" name="BOCWIDNumber" placeholder="BOCW ID Number" value="{{details.BOCWIDNumber}}">
+                <input type="text" class="form-control" name="BOCWIDNumber" placeholder="BOCW ID Number"
+                    value="{{details.BOCWIDNumber}}">
             </div>
         </div>
 
@@ -44,16 +48,19 @@
             <h5>Personal Details:</h5>
             <div class="form-group">
                 <label>Name of Beneficiary</label>
-                <input type="text" class="form-control" name="name" placeholder="Name of Beneficiary" value="{{details.name}}">
+                <input type="text" class="form-control" name="name" placeholder="Name of Beneficiary"
+                    value="{{details.name}}">
             </div>
             <div class="form-group">
                 <label>Aadhar Number</label>
-                <input type="text" class="form-control" name="aadharNumber" placeholder="Aadhar Number" value="{{details.aadharNumber}}">
+                <input type="text" class="form-control" name="aadharNumber" placeholder="Aadhar Number"
+                    value="{{details.aadharNumber}}">
             </div>
             <div class="row">
                 <div class="form-group col-sm-6">
                     <label>Date of Birth</label>
-                    <input type="date" class="form-control" name="dob" placeholder="Date of Birth" value="{{details.dob}}">
+                    <input type="date" class="form-control" name="dob" placeholder="Date of Birth"
+                        value="{{details.dob}}">
                 </div>
                 <div class="form-group col-sm-6">
                     <label>Age</label>
@@ -61,7 +68,8 @@
                 </div>
                 <div class="form-group col-sm-6">
                     <label>Weight</label>
-                    <input type="Number" class="form-control" name="weight" placeholder="Weight" value="{{details.weight}}">
+                    <input type="Number" class="form-control" name="weight" placeholder="Weight"
+                        value="{{details.weight}}">
                 </div>
                 <div class="form-group col-sm-6">
                     <label>Sex</label>
@@ -77,12 +85,14 @@
             <h5>Contact Details:</h5>
             <div class="form-group">
                 <label>Address</label>
-                <input type="text" class="form-control" name="address" placeholder="Address" value="{{details.address}}">
+                <input type="text" class="form-control" name="address" placeholder="Address"
+                    value="{{details.address}}">
             </div>
             <div class="row">
                 <div class="form-group col-sm-6">
                     <label>District</label>
-                    <input type="text" class="form-control" name="district" placeholder="District" value="{{details.district}}">
+                    <input type="text" class="form-control" name="district" placeholder="District"
+                        value="{{details.district}}">
                 </div>
                 <div class="form-group col-sm-6">
                     <label>State</label>
@@ -90,16 +100,19 @@
                 </div>
                 <div class="form-group col-sm-6">
                     <label>Country</label>
-                    <input type="text" class="form-control" name="country" placeholder="Country" value="{{details.country}}">
+                    <input type="text" class="form-control" name="country" placeholder="Country"
+                        value="{{details.country}}">
                 </div>
                 <div class="form-group col-sm-6">
                     <label>Pincode</label>
-                    <input type="text" class="form-control" name="pincode" placeholder="Pincode" value="{{details.pincode}}">
+                    <input type="text" class="form-control" name="pincode" placeholder="Pincode"
+                        value="{{details.pincode}}">
                 </div>
             </div>
             <div class="form-group">
                 <label>Mobile Number</label>
-                <input type="text" class="form-control" name="mobileNumber" placeholder="Mobile Number" value="{{details.mobileNumber}}">
+                <input type="text" class="form-control" name="mobileNumber" placeholder="Mobile Number"
+                    value="{{details.mobileNumber}}">
             </div>
         </div>
 
@@ -115,7 +128,8 @@
                         <option value="Crusher Helper">Crusher Helper</option>
                         <option value="Other">Other</option>
                     </select>
-                    <input type="text" class="form-control col-sm-4" name="presentOccupationOther" placeholder="Specify Occupation" value="{{details.presentOccupationOther}}">
+                    <input type="text" class="form-control col-sm-4" name="presentOccupationOther"
+                        placeholder="Specify Occupation" value="{{details.presentOccupationOther}}">
                 </div>
             </div>
             <div class="form-group">
@@ -125,22 +139,26 @@
                         {{!-- <input class="form-check-input" type="checkbox" name="occHisConstrCheck" check={{ details.occupationHistory.construction.check }}> --}}
                         <label class="form-check-label">Building & Construction</label>
                     </div>
-                    <input type="text" class="form-control col-sm-4" name="occHisConstruction" placeholder="Years" value="{{details.occHisConstruction}}">
+                    <input type="text" class="form-control col-sm-4" name="occHisConstruction" placeholder="Years"
+                        value="{{details.occHisConstruction}}">
                 </div>
                 <div class="row justify-content-between">
                     <div class="form-check">
                         {{!-- <input class="form-check-input" type="checkbox" name="occHisMinesCheck" check="{{details.occupationHistory.mines.check}}"> --}}
                         <label class="form-check-label">Mines</label>
                     </div>
-                    <input type="text" class="form-control col-sm-4" name="occHisMines" placeholder="Years" value="{{details.occHisMines}}">
+                    <input type="text" class="form-control col-sm-4" name="occHisMines" placeholder="Years"
+                        value="{{details.occHisMines}}">
                 </div>
                 <div class="row justify-content-between">
                     <div class="form-check">
                         {{!-- <input class="form-check-input" type="checkbox" name="occHisOtherCheck" check="{{details.occupationHistory.other.check}}"> --}}
                         <label class="form-check-label">Other</label>
                     </div>
-                    <input type="text" class="form-control col-sm-3" name="occHisOtherOccupation" placeholder="Specify Occupation" value="{{details.occHisOtherOccupation}}">
-                    <input type="text" class="form-control col-sm-3" name="occHisOther" placeholder="Years" value="{{details.occHisOther}}">
+                    <input type="text" class="form-control col-sm-3" name="occHisOtherOccupation"
+                        placeholder="Specify Occupation" value="{{details.occHisOtherOccupation}}">
+                    <input type="text" class="form-control col-sm-3" name="occHisOther" placeholder="Years"
+                        value="{{details.occHisOther}}">
                 </div>
             </div>
         </div>
@@ -159,7 +177,8 @@
                 </div>
                 <div class="form-group col-sm-6">
                     <label>Total Duration of Suffering</label>
-                    <input type="Number" class="form-control" name="duration_suffer" placeholder="Duration of Suffering" value="{{details.duration_suffer}}">
+                    <input type="Number" class="form-control" name="duration_suffer" placeholder="Duration of Suffering"
+                        value="{{details.duration_suffer}}">
                 </div>
             </div>
             <div class="form-group">
@@ -173,7 +192,9 @@
                         <option value="Chest Pain">Chest Pain</option>
                         <option value="Other">Other</option>
                     </select>
-                    <input style="margin-left: 30px;" type="text" class="form-control col-sm-4" name="chiefComplaintsOther" placeholder="Chief Complaints" value="{{details.chiefComplaintsOther}}">
+                    <input style="margin-left: 30px;" type="text" class="form-control col-sm-4"
+                        name="chiefComplaintsOther" placeholder="Chief Complaints"
+                        value="{{details.chiefComplaintsOther}}">
                 </div>
             </div>
         </div>
@@ -196,8 +217,8 @@
 
         <div style="overflow:auto;">
             <div style="float:right;">
-                <button type="button" id="Save" onclick="save()">Save</button>
-                <button type="submit">Submit</button>
+                <button class="btn btn-sm btn-outline-success" type="button" id="Save" onclick="save()">Save</button>
+                <button class="btn btn-sm btn-success" type="submit">Submit</button>
             </div>
         </div>
 
@@ -214,6 +235,9 @@
 
 
 <script>
+    {{!-- document.getElementById('patientform').addEventListener('click', (event) => {
+        event.preventDefault()
+    }) --}}
     var currentTab = 0;
     showTab(currentTab);
 
@@ -227,7 +251,7 @@
         } else {
             document.getElementById("prevBtn").style.display = "inline";
         }
-        
+
         if (_current_tab == (x.length - 1)) {
             document.getElementById("nextBtn").style.display = "none";
         } else {
@@ -268,7 +292,7 @@
         height: 30px;
         width: 30px;
         margin: 0 2px;
-        background-color: #bbbbbb;
+        background-color: #ffbf80;
         border: none;
         border-radius: 50%;
         display: inline-block;

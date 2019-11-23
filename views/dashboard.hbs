@@ -1,11 +1,13 @@
+{{!-- <div style="background-color: #b3ffb3;"> --}}
 <div style="margin-top:100px; padding:20px;" class="container-fluid col-xs-12 col-sm-8 col-md-8 col-lg-5">
     <h1 class="mt-4">Dashboard</h1>
     {{> messages}}
+    <p class="lead mb-3">Welcome {{user}}</p>
     <div class="row">
-        <p class="lead mb-3">Welcome {{user.name}}</p>
-        <a href="/dashboard/patient-form" class="btn btn-secondary btn-block">Patient Form</a>
-        <a href="/calls" class="btn btn-secondary btn-block">Calls Informations</a>
-        <a href="/chat/#init" class="btn btn-secondary btn-block">Make A Call</a>
-        <a href="/user/logout" class="btn btn-secondary btn-block">Logout</a>
+        <a href="/patientForm/create" class="btn btn-primary col-xs-12 col-sm-5" style="margin: 10px;">Patient Form</a>
+        <a href="/calls" class="btn btn-primary col-xs-12 col-sm-5" style="margin: 10px;">Calls Informations</a>
+        <a href="/chat/#init" class="btn btn-primary col-xs-12 col-sm-5" style="margin: 10px;">Make A Call</a>
+        <a href="/user/logout" class="btn btn-primary col-xs-12 col-sm-5" style="margin: 10px;">Logout</a>
     </div>
 </div>
+{{!-- </div> --}}

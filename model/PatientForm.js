@@ -4,6 +4,20 @@ function PatientForm() { }
 
 PatientForm.prototype = {
 
+    query: function(sql, data, callback){
+        console.log(sql)
+        console.log(data)
+        execQuery(sql, data, (err, result) => {
+            if(err){
+                console.log(err)
+                callback(err, null)
+                return
+            }else{
+                callback(null, result)
+            }
+        })
+    },
+
     findById: function (id, callback) {
         let sql = 'SELECT * FROM PatientForm WHERE formID = ?';
         execQuery(sql, id, (err, result) => {
@@ -19,6 +33,18 @@ PatientForm.prototype = {
     findByBOCW_ID: function (BOCW_ID_Number, callback) {
         let sql = 'SELECT * FROM User WHERE BOCWIDNumber = ?';
         execQuery(sql, BOCW_ID_Number, (err, result) => {
+            if (err) {
+                console.log(err)
+                callback(err, null);
+                return;
+            }
+            callback(null, result[0])
+        })
+    },
+
+    findByUserId: function(userID, callback){
+        let sql = 'SELECT * FROM User WHERE userID = ?';
+        execQuery(sql, userID, (err, result) => {
             if (err) {
                 console.log(err)
                 callback(err, null);
@@ -92,10 +118,27 @@ PatientForm.prototype = {
         })
     },
 
+    deleteFormByUserId: function(userID, callback){
+        if(userID){
+            let sql = 'DELETE FROM PatientForm WHERE userID = ?';
+            execQuery(sql, userID, (err, _) => {
+                if(err){
+                    callback(err, null)
+                    return
+                }else{
+                    callback(null, true)
+                    return
+                }
+            })
+        }else{
+            callback('Please Pass formID', null)
+        }
+    },
+
     deleteFormById: function(formID, callback){
         if(formID){
             let sql = 'DELETE FROM PatientForm WHERE formID = ?';
-            execQuery(sql, formID, (err, result) => {
+            execQuery(sql, formID, (err, _) => {
                 if(err){
                     callback(err, null)
                     return
@@ -112,7 +155,7 @@ PatientForm.prototype = {
     deleteFormByBOCWID: function(BOCWIDNumber, callback){
         if(formID){
             let sql = 'DELETE FROM PatientForm WHERE BOCWIDNumber = ?';
-            execQuery(sql, BOCWIDNumber, (err, result) => {
+            execQuery(sql, BOCWIDNumber, (err, _) => {
                 if(err){
                     callback(err, null)
                     return

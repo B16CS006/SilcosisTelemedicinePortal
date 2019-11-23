@@ -1,39 +1,4 @@
-{{!-- <div>
-    {{> messages}}
-    <form action="/user/register" method="POST">
-        <h1>Register</h1>
-        
-        <div>
-            <h5><label>Email: </label></h5>
-            <input name="email" type="text" placeholder="Email" value="{{email}}">
-
-            <h5><label>Password: </label></h5>
-            <input name="password" placeholder="Password" type="text" value="{{password}}">
-
-            <h5><label>Confirm Password: </label></h5>
-            <input name="confirmPassword" placeholder="Confirm Password" type="text" value="{{confirmPassword}}">
-
-            <h5><label>Name: </label></h5>
-            <input name="name" type="text" placeholder="Name" value="{{name}}">
-
-            <h5><label>Role: </label></h5>
-            <input name="role" type="text" placeholder="Role" value="{{role}}">
-
-            <h5><label>Phone Number: </label></h5>
-            <input name="mobileNumber" type="text" placeholder="Phone Number" value="{{mobileNumber}}">
-        </div>
-
-        <div style="overflow:auto;">
-            <div style="float:right;">
-                <button type="submit">Submit</button>
-            </div>
-        </div>
-    </form>
-</div> --}}
-
-
-
-<div style="margin-top:100px; padding:20px;" class="container-fluid col-xs-12 col-sm-8 col-md-8 col-lg-5">
+<div style="margin-top:100px; padding:20px; background-color: #b3ffb3;" class="container-fluid col-xs-12 col-sm-8 col-md-8 col-lg-5">
     <h3 class="">Register</h3>
     <form action="/user/register" method="POST" style="padding-top: 20px;">
         {{> messages}}

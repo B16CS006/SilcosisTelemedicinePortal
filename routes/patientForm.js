@@ -71,12 +71,12 @@ router.post('/create', ensureAuthenticated, (req, res) => {
 })
 
 router.post('/get', ensureAuthenticated, (req, res) => {
-
+    res.send('Incomplete')
 })
 
-router.post('/getAll', ensureAuthenticated, (req, res) => {
-    
+router.post('/getAll', ensureAuthenticated, express.json({type: '*/*'}), (req, res) => {
     if (req.user.role === 'patient') {
+        console.log('Patient')
         PatientDetailModel.findByUserId(req.user.email, (err, result) => {
             if (err) {
                 res.send({ error: err })
@@ -86,8 +86,9 @@ router.post('/getAll', ensureAuthenticated, (req, res) => {
             }
         })
     } else if (req.user.role === 'doctor' || req.user.role === 'admin') {
-        let body = JSON.parse(req.body.data)
-        PatientDetailModel.findByUserId(body.userID, (err, result) => {
+        console.log('Doctor')
+        console.log(req.body)
+        PatientDetailModel.findByUserId(req.body.userID, (err, result) => {
             if (err) {
                 res.send({ error: err })
                 return

@@ -27,14 +27,13 @@
         };
 
         xmlHttpReq.open(method, url, isasync);
-        xmlHttpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlHttpReq.setRequestHeader("Content-type", "application/json");
         xmlHttpReq.send(data);
     }
 
     function getIncomingCalls(data, callback){
         console.log('getting incoming calls')
         loadDoc('POST', '/calls/getIncoming', data, true, (request) => {
-            {{!-- console.log(request.responseText) --}}
             callback(JSON.parse(request.responseText))
         })
     }
@@ -57,7 +56,29 @@
                 var created = document.createElement('p')
                 created.innerHTML = incommingCall.created
 
-                var rejectButton = document.createElement('a')
+                var form = document.createElement('form');
+                form.setAttribute('method', 'POST');
+                form.setAttribute('action', '/calls/accept');
+                form.setAttribute("Content-type", "application/json")
+
+                var otherID = document.createElement('input');
+                otherID.setAttribute('type', 'hidden');
+                otherID.setAttribute('name', 'otherID');
+                otherID.setAttribute('value', incommingCall.otherID);
+
+                var code = document.createElement('input');
+                code.setAttribute('type', 'hidden');
+                code.setAttribute('name', 'code');
+                code.setAttribute('value', incommingCall.code);
+
+                var acceptButton = document.createElement('button')
+                acceptButton.setAttribute('class', 'btn btn-primary')
+                acceptButton.setAttribute('type', 'submit');
+                acceptButton.style.cssFloat = 'right'
+                acceptButton.innerHTML = 'Accept'
+                acceptButton.style.color = 'white'
+
+                var rejectButton = document.createElement('button')
                 rejectButton.setAttribute('class', 'btn btn-warning')
                 rejectButton.disabled = true
                 rejectButton.style.cssFloat = 'right'
@@ -65,17 +86,14 @@
                 rejectButton.innerHTML = 'Reject'
                 rejectButton.style.color = 'white'
 
-                var acceptButton = document.createElement('a')
-                acceptButton.setAttribute('class', 'btn btn-primary')
-                acceptButton.style.cssFloat = 'right'
-                acceptButton.innerHTML = 'Accept'
-                acceptButton.style.color = 'white'
-                acceptButton.href = '/chat?otherID=' + incommingCall.myID + '&code=' + incommingCall.code
+                form.appendChild(otherID);
+                form.appendChild(code)
+                form.appendChild(acceptButton)
+                form.appendChild(rejectButton)
 
                 cardBody.appendChild(title)
                 cardBody.appendChild(created)
-                cardBody.appendChild(acceptButton)
-                cardBody.appendChild(rejectButton)
+                cardBody.appendChild(form)
 
                 incommingCallDiv.appendChild(cardBody)
 

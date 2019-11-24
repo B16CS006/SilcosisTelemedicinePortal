@@ -125,6 +125,6 @@ app.use('/bundle', express.static(__dirname + '/js/bundle'))
 // })
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Active on ${port} port.`)
 })

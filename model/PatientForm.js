@@ -31,7 +31,7 @@ PatientForm.prototype = {
     },
 
     findByBOCW_ID: function (BOCW_ID_Number, callback) {
-        let sql = 'SELECT * FROM User WHERE BOCWIDNumber = ?';
+        let sql = 'SELECT * FROM PatientForm WHERE BOCWIDNumber = ?';
         execQuery(sql, BOCW_ID_Number, (err, result) => {
             if (err) {
                 console.log(err)
@@ -43,14 +43,14 @@ PatientForm.prototype = {
     },
 
     findByUserId: function(userID, callback){
-        let sql = 'SELECT * FROM User WHERE userID = ?';
+        let sql = 'SELECT * FROM PatientForm WHERE userID = ?';
         execQuery(sql, userID, (err, result) => {
             if (err) {
                 console.log(err)
                 callback(err, null);
                 return;
             }
-            callback(null, result[0])
+            callback(null, result)
         })
     },
 

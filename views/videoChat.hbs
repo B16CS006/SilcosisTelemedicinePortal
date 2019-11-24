@@ -1,50 +1,324 @@
-<div class="container-fluid col-sm-12 col-md-10 col-lg-8" id="videoChat">
+<div class="container-fluid col-sm-12" id="videoChat">
     <h3 class="text-center">Chat</h3>
     <div class="row justify-content-around">
         <div id="chatStatus" class="col-sm-12" style="display: none;"></div>
-        <div class="col-sm-12" style="display: none;">
+        <div class="col-sm-12 col-md-10 col-lg-8" style="display: none;">
             <input id="myChatID" placeholder="My ID">
             <input id="otherChatID" placeholder="Other ID">
             <button id="chatConnectButton">Connect</button>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12 justify-content-around">
             <button id="checkReply" class="btn btn-success" style="float: right; display: none; margin:10px;" disabled>Check Reply</button>
             <button id="disconnect" class="btn btn-warning" style="float: right; display: none; margin:10px;" disabled>Disconnect</button>
         </div>
-        <div class="col-sm-12 col-md-10 col-lg-8" style="background-color: #f0ffff; padding: 10px; clear: both;">
-            <div id="messages"></div>
-            <div class="row justify-content-around">
-                <input type="text" id="writeMessage" placeholder="Write message..." class="form-control col-sm-8">
-                <button id="sendMessage" class="btn btn-primary col-sm-3">Send</button>
-            </div>
-        </div>
-        <div class="col-sm-12">
-            <div>
-                <div id="otherVideo" class="d-flex justify-content-center">
-                    {{!-- <div>Other</div> --}}
-                </div>
-                <div class="d-flex justify-content-center">
-                    {{!-- <div>Self</div> --}}
-                    <video class="embed-responsive-item" muted></video>
+        <div class="row col-sm-12 justify-content-around">
+            <div class="row col-sm-12 col-md-10 col-lg-8 justify-content-around" style="padding: 10px; clear: both;">
+                <div id="messages" class="col-sm-12"></div>
+                <div class="row col-sm-12 justify-content-around" style="margin: 10px;">
+                    <input type="text" id="writeMessage" placeholder="Write message..." class="form-control col-sm-11">
+                    <button id="sendMessage" class="btn btn-primary btn-sm col-sm-3" style="display: none;">Send</button>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
-            <input placeholder="Enter a Number..." id="formNumber">
+        <div class="row col-sm-12 justify-content-around">
+            <div id="otherVideo" class="d-flex justify-content-around col-sm-12 col-md-5" style="margin: 1px; border: 3px solid #b3c6ff;">
+                {{!-- <div>Other</div> --}}
+            </div>
+            <div class="d-flex justify-content-around col-sm-12 col-md-5" style="margin: 2px; border: 2px solid #b3ffb3;">
+                {{!-- <div>Self</div> --}}
+                <video muted></video>
+            </div>
         </div>
-        <div class="col-sm-12">
-            {{> patientDetails}}
+    </div>
+    <div class="row justify-content-around">
+    <div class="accordion col-sm-12" id="patientDetails">
+        <h3>Patient's Form</h3>
+        <div class="card">
+            <div class="card-header" id="patientRegistrationDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientRegistrationDetail"
+                        aria-expanded="true" aria-controls="patientRegistrationDetail">
+                        Registration Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientRegistrationDetail" class="collapse" aria-labelledby="patientRegistrationDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                       <strong>Date: </strong><P id="patient-detail-date"></P>
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Place: </strong>
+                        <P id="patient-detail-place"></P>
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Registration Number: </strong>
+                        <P id="patient-detail-regNum"></P>
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>BOCW ID Number: </strong>
+                        <P id="patient-detail-BOCWIDNumber"></P>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header" id="patientPersonalDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientPersonalDetail"
+                        aria-expanded="true" aria-controls="patientPersonalDetail">
+                        Personal Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientPersonalDetail" class="collapse" aria-labelledby="patientPersonalDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                        <strong>Name of Beneficiary: </strong>
+                        <P id="patient-detail-name"></P>
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Aadhar Number: </strong>
+                        <P id="patient-detail-aadharNumber"></P>
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>Date of Birth: </strong>
+                        <P id="patient-detail-dob"></P>
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>Age: </strong>
+                        <P id="patient-detail-age"></P>
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>Weight: </strong>
+                        <P id="patient-detail-weight"></P>
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>Sex: </strong>
+                        <P id="patient-detail-sex"></P>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header" id="patientContactDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientContactDetail"
+                        aria-expanded="true" aria-controls="patientContactDetail">
+                        Contact Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientContactDetail" class="collapse" aria-labelledby="patientContactDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                        <strong>Address: </strong>
+                        <P id="patient-detail-address"></P>
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>District: </strong>
+                        <P id="patient-detail-district"></P>
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>State: </strong>
+                        <P id="patient-detail-state"></P>
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>Country: </strong>
+                        <P id="patient-detail-country"></P>
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>Pincode: </strong>
+                        <P id="patient-detail-pincode"></P>
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Mobile Number: </strong>
+                        <P id="patient-detail-mobileNumber"></P>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header" id="patientOccupationDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientOccupationDetail"
+                        aria-expanded="true" aria-controls="patientOccupationDetail">
+                        Occupation Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientOccupationDetail" class="collapse" aria-labelledby="patientOccupationDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                        <strong>Present Occupation: </strong>
+                        <P id="patient-detail-presentOccupation"></P>
+                    </div>
+                    <div class="col-sm-12">
+                        Duratoin of Exposure:<br>
+                        <strong>Building & Construction: </strong>
+                        <P id="patient-detail-occHisConstruction"></P><br>
+                        <strong>Mines: </strong>
+                        <P id="patient-detail-occHisMines"></P><br>
+                        <strong id="patient-detail-occHisOtherOccupation"></strong><strong>: </strong>
+                        <P id="patient-detail-occHisOther"></P>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header" id="patientMedicalDetailLabel">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#patientMedicalDetail"
+                        aria-expanded="true" aria-controls="patientMedicalDetail">
+                        Medical Details
+                    </button>
+                </h2>
+            </div>
+            <div id="patientMedicalDetail" class="collapse" aria-labelledby="patientMedicalDetailLabel"
+                data-parent="#patientDetails">
+                <div class=" row card-body">
+                    <div class="col-sm-12">
+                        <strong>History of Smoking: </strong>
+                        <P id="patient-detail-historyOfSmoking"></P>
+                    </div>
+                    <div class="col-sm-12">
+                        Total Duration of Suffering: 
+                        <P id="patient-detail-duration_suffer"></P>
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Chief Complaints: </strong>
+                        <P id="patient-detail-chiefComplaints"></P>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-link" type="button">photograph</button>
+                        <button class="btn btn-link" type="button">xRayReport</button>
+                        <button class="btn btn-link" type="button">ctScanReport</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="row col-sm-12 col-md-10 col-lg-8 justify-content-around">
+            <nav><ul class="pagination" style="margin: 10px;">
+                <li class="page-item"><a class="page-link" onclick="nextForm(-1)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li class="page-item"><input class="page-link" placeholder="Enter Form Number..." id="formNumber"></li>
+                <li class="page-item"><a class="page-link" onclick="nextForm(1)" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            </ul></nav>
         </div>
     </div>
 </div>
-{{!-- <script>
-    var user = '{{ user }}'
-</script> --}}
+<script>
+    let otherEmailId = '{{ otherID }}'
+    let code = '{{{ code }}}'.slice(1, -1)
+    let peer, patientDetails, patientDetail, currentForm = 0
+
+    var element = function(id){ return document.getElementById(id) }
+
+    var formNumberInput = element('formNumber')
+    formNumberInput.addEventListener('keydown', (event) => {
+        if(event.which == 13 && event.shiftKey == false){
+            var formNumber = parseInt(formNumberInput.value)
+            if(!isNaN(formNumber)){ setCurrentForm(formNumber) }
+            formNumberInput.value = ''
+        }
+    })
+
+    if(location.hash === '#init'){
+        otherEmailId = prompt("Please enter email address of user you want to communicate", "test@gmail.com").trim();
+        if(!otherEmailId.match(/\S+@\S+\.\S+/)){
+            element('videoChat').innerHTML = 'Please Enter a Valid Email of other User'
+            window.stop()
+        }
+    }else{
+        if(!code){
+            element('videoChat').innerHTML = 'Code not found'
+            window.stop()
+        }
+        if(!otherEmailId){
+            element('videoChat').innerHTML = 'user ID for other user not found.'
+            window.stop()
+        }
+    }
+
+    function loadDoc(method, url, data, isasync, callback){
+        let xmlHttpReq
+        if (window.XMLHttpRequest) { xmlHttpReq = new XMLHttpRequest(); } // code for modern browsers
+        else { xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP"); } // code for old IE browsers
+
+        xmlHttpReq.onreadystatechange = function() {
+            if (this.readyState === 4) {
+            callback(this);
+            }
+        };
+
+        xmlHttpReq.open(method, url, isasync);
+        xmlHttpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xmlHttpReq.send(JSON.stringify(data));
+    }
+
+    function setCurrentForm(number){
+        if(number < 0)
+            currentForm = 0;
+        else if(number >= 0 && number < patientDetails.length)
+            currentForm = number
+        else 
+            currentForm = patientDetails.length - 1
+        updateForm()
+        formNumberInput.setAttribute('placeholder', currentForm + '/' + (patientDetails.length - 1))
+    }
+
+    function nextForm(number){
+        setCurrentForm(currentForm + number)
+    }
+
+    function fetchForms(){
+        console.log('Fetching form...')
+        loadDoc('POST', '/patientForm/getAll', {userID: otherEmailId}, true, (request) => {
+            console.log(request.responseText)
+            console.log('Feteched data')
+            patientDetails = JSON.parse(request.responseText).result
+            patientDetail = patientDetails[0]
+            console.log(patientDetail)
+            updateForm()
+        })
+    }
+
+    function updateForm(){
+        var patient_detail_date = element('patient-detail-date').innerHTML = patientDetails[currentForm].date
+        var patient_detail_place = element('patient-detail-place').innerHTML = patientDetails[currentForm].place
+        var patient_detail_regNum = element('patient-detail-regNum').innerHTML = patientDetails[currentForm].regNum
+        var patient_detail_BOCWIDNumber = element('patient-detail-BOCWIDNumber').innerHTML = patientDetails[currentForm].BOCWIDNumber
+        var patient_detail_name = element('patient-detail-name').innerHTML = patientDetails[currentForm].name
+        var patient_detail_aadharNumber = element('patient-detail-aadharNumber').innerHTML = patientDetails[currentForm].aadharNumber
+        var patient_detail_dob = element('patient-detail-dob').innerHTML = patientDetails[currentForm].dob
+        var patient_detail_age = element('patient-detail-age').innerHTML = patientDetails[currentForm].age
+        var patient_detail_weight = element('patient-detail-weight').innerHTML = patientDetails[currentForm].weight
+        var patient_detail_sex = element('patient-detail-sex').innerHTML = patientDetails[currentForm].sex
+        var patient_detail_address = element('patient-detail-address').innerHTML = patientDetails[currentForm].address
+        var patient_detail_district = element('patient-detail-district').innerHTML = patientDetails[currentForm].district
+        var patient_detail_state = element('patient-detail-state').innerHTML = patientDetails[currentForm].state
+        var patient_detail_country = element('patient-detail-country').innerHTML = patientDetails[currentForm].country
+        var patient_detail_pincode = element('patient-detail-pincode').innerHTML = patientDetails[currentForm].pincode
+        var patient_detail_mobileNumber = element('patient-detail-mobileNumber').innerHTML = patientDetails[currentForm].mobileNumber
+        var patient_detail_presentOccupation = element('patient-detail-presentOccupation').innerHTML = patientDetails[currentForm].presentOccupation
+        var patient_detail_occHisConstruction = element('patient-detail-occHisConstruction').innerHTML = patientDetails[currentForm].occHisConstruction
+        var patient_detail_occHisOtherOccupation = element('patient-detail-occHisOtherOccupation').innerHTML = patientDetails[currentForm].occHisOtherOccupation
+        var patient_detail_occHisOther = element('patient-detail-occHisOther').innerHTML = patientDetails[currentForm].occHisOther
+        var patient_detail_historyOfSmoking = element('patient-detail-historyOfSmoking').innerHTML = patientDetails[currentForm].historyOfSmoking
+        var patient_detail_duration_suffer = element('patient-detail-duration_suffer').innerHTML = patientDetails[currentForm].duration_suffer
+        var patient_detail_chiefComplaints = element('patient-detail-chiefComplaints').innerHTML = patientDetails[currentForm].chiefComplaints
+    }
+    
+</script>
 <script src="/bundle/chat.js"></script>
+<script>
+    fetchForms()
+</script>
 {{!-- <script src="/socket.io/socket.io.js"></script> --}}
 
 <style>
     #messages{
+        background-color: #fffff0;
         height: 300px;
         overflow: auto;
         justify-content: center;

@@ -14,11 +14,10 @@ router.get('/', ensureAuthenticated, (req, res) => {
 //     res.render('videoChat')
 // })
 
-router.post('/initCall', ensureAuthenticated, (req, res) => {
+router.post('/initCall', ensureAuthenticated, express.json({type: '*/*'}), (req, res) => {
     console.log('initCall')
-    let body = JSON.parse(req.body.data)
     
-    let data = {myID: req.user.email, otherID: body.otherID, type: 'init', code: body.code}
+    let data = {myID: req.user.email, otherID: req.body.otherID, type: 'init', code: req.body.code}
     console.log('data', data)
     CallsModel.create(data, (err, result) => {
         if(err){
@@ -35,11 +34,10 @@ router.post('/initCall', ensureAuthenticated, (req, res) => {
     })
 })
 
-router.post('/replyCall', ensureAuthenticated, (req, res) => {
+router.post('/replyCall', ensureAuthenticated, express.json({type: '*/*'}), (req, res) => {
     // console.log('replyCall')
-    let body = JSON.parse(req.body.data)
     
-    let data = {myID: req.user.email, otherID: body.otherID, type: 'reply', code: body.code}
+    let data = {myID: req.user.email, otherID: req.body.otherID, type: 'reply', code: req.body.code}
     // console.log('data', data)
     CallsModel.create(data, (err, result) => {
         if(err){
@@ -56,11 +54,10 @@ router.post('/replyCall', ensureAuthenticated, (req, res) => {
     })
 })
 
-router.post('/getReply', ensureAuthenticated, (req, res) => {
+router.post('/getReply', ensureAuthenticated, express.json({type: '*/*'}), (req, res) => {
     // console.log('getReply')
-    let body = JSON.parse(req.body.data)
 
-    let data = {myID: body.otherID, otherID: req.user.email};
+    let data = {myID: req.body.otherID, otherID: req.user.email};
     // console.log('data', data)
     CallsModel.findReply(data, (err, result) => {
         console.log(err, result)
@@ -78,7 +75,7 @@ router.post('/getReply', ensureAuthenticated, (req, res) => {
     })
 })
 
-router.post('/getIncoming', ensureAuthenticated, (req, res) => {
+router.post('/getIncoming', ensureAuthenticated, express.json({type: '*/*'}), (req, res) => {
     CallsModel.findIncomingCalls(req.user.email, (err, result) => {
         if(err){
             res.send({error: err})
@@ -94,9 +91,15 @@ router.post('/getIncoming', ensureAuthenticated, (req, res) => {
     })
 })
 
-router.post('/disconnect', ensureAuthenticated, (req, res) => {
-    let body = JSON.parse(req.body.data)
-    let data = {myID: req.user.email, otherID: body.otherID}
+
+
+router.post('/accept', ensureAuthenticated, express.json({type: '*/*'}), (req, res) => {
+    console.log(req.body.code)
+    res.render('videoChat', {otherID: req.body.otherID, code: JSON.stringify(req.body.code)})
+})
+
+router.post('/disconnect', ensureAuthenticated, express.json({type: '*/*'}), (req, res) => {
+    let data = {myID: req.user.email, otherID: req.body.otherID}
     
     CallsModel.deleteById(data, (err, result) => {
         if(err){

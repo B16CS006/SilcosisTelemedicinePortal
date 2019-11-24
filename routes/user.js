@@ -8,8 +8,7 @@ const UserModel = new User()
 
 router.get('/register', (req, res) => {
     if(req.isAuthenticated()){
-        res.redirect('/dashboard') 
-        // window.location.replace('/dashboard') 
+        res.redirect('/dashboard')
     }else{
         res.render("register")
     }

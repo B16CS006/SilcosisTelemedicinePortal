@@ -65,13 +65,12 @@ function createCall(data){
 
 // Add a entry to database for a reply
 function replyToCall(data){
-    // console.log('Replying to the call...')
     loadDoc('POST', '/calls/replyCall', data, true, (request) => {
         console.log(request.responseText)
         if(!request.responseText.error){
             // Wait until initiator accept you offer and appearing a button
             disconnectCall.disabled = false
-            disconnectCall.innerHTML = 'Waiting... Click to End Call'
+            disconnectCall.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="">Waiting... Click to Disconnect</span>'
             disconnectCall.style.display = 'inline'
         }
     })
@@ -88,7 +87,6 @@ function getReply(){
             checkReply.style.display = 'inline'
         }else if(responseText.code){
             console.log(responseText.message)
-            console.log(responseText.code)
             if(responseText.code === '' && responseText === undefined && responseText === null){
                 console.code('Code is not there.')
             }else{
@@ -106,7 +104,6 @@ function getReply(){
 
 // Delete entries from database and then redirect user to dashbaord page
 function connectionDisconnect(){
-    console.log('Disconnecting...')
     loadDoc('POST', '/calls/disconnect', {otherID: otherEmailId}, true, (request) => {
         console.log(request.responseText)
         window.location.replace("/dashboard")
@@ -115,13 +112,13 @@ function connectionDisconnect(){
 
 // Setting Peering settings 
 var startComunication = function(peer){
-    console.log('startCommunication')
+    // console.log('startCommunication')
     var messageInput = element('writeMessage')
 
     // Signal the other peer that code is received
     if(location.hash !== '#init'){
         if(code){
-            console.log(code)
+            // console.log(code)
             peer.signal(code)
         }else{
             console.error('Unable to find find code, it should be there for communcation');

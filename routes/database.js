@@ -35,9 +35,9 @@ var patientFormTable = 'CREATE TABLE PatientForm(formID int UNSIGNED NOT NULL AU
                         + ', chiefComplaints VARCHAR(255)'
                         + ', chiefComplaintsOther VARCHAR(255)'
                         + ', duration_suffer VARCHAR(255)'
-                        + ', photograph TINYINT'
-                        + ', xRayReport TINYINT'
-                        + ', ctScanReport TINYINT'
+                        + ', photograph VARCHAR(255)'
+                        + ', xRayReport VARCHAR(255)'
+                        + ', ctScanReport VARCHAR(255)'
                         + ', updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP'
                         + ', created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(formID))'
 
@@ -59,8 +59,21 @@ var deleteCalls = function() {
     execQuery('DELETE FROM table Calls', null, (error, result) => {console.log(error, result)})
 }
 
+var deleteTable = function(table){
+    console.log('deleting table: ' + table)
+    execQuery('DROP TABLE ' + table, null, (error, result) => {console.log(error, result)})
+}
+
 router.get('/createDatabase', (req, res) => {
-    res.render('createDatabase')
+    res.render('database', {link: 'createDatabase'})
+})
+
+router.get('/deleteCalls', (req, res) => {
+    res.render('database', {link: 'deleteCalls'})
+})
+
+router.get('/deleteTable/:table', (req, res) => {
+    res.render('database', {link: 'deleteTable/' + req.params.table})
 })
 
 router.post('/createDatabase', (req, res) => {
@@ -75,6 +88,15 @@ router.post('/createDatabase', (req, res) => {
 router.post('/deleteCalls', (req, res) => {
     if(req.body.password == 'somerandompasswordIITJodhpur'){
         deleteCalls()
+        res.send('done')
+    }else{
+        res.send('Incorrect Password')
+    }
+})
+
+router.post('/deleteTable/:table', (req, res) => {
+    if(req.body.password === 'somerandompasswordIITJodhpur'){
+        deleteTable(req.params.table)
         res.send('done')
     }else{
         res.send('Incorrect Password')

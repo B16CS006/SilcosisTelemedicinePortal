@@ -189,10 +189,19 @@
                         <strong>Chief Complaints: </strong>
                         <P id="patient-detail-chiefComplaints"></P>
                     </div>
-                    <div class="col-sm-4">
-                        <button class="btn btn-link" type="button">photograph</button>
-                        <button class="btn btn-link" type="button">xRayReport</button>
-                        <button class="btn btn-link" type="button">ctScanReport</button>
+                    <div class="row col-sm-12 col-md-10 col-lg-8 justify-content-around">
+                        <form id="patient-detail-photograph-form" style="margin: 10px; color: white;" method="POST", action="/patientForm/downloadfile">
+                            <input id="patient-detail-photograph" type="hidden" name="filename">
+                            <button type="submit" class="btn btn-primary btn-sm">photograph</button>
+                        </form>
+                        <form id="patient-detail-xRayReport-form" style="margin: 10px; color: white;" method="POST", action="/patientForm/downloadfile">
+                            <input id="patient-detail-xRayReport" type="hidden" name="filename">
+                            <button type="submit" class="btn btn-primary btn-sm">xRayReport</button>
+                        </form>
+                        <form id="patient-detail-ctScanReport-form" style="margin: 10px; color: white;" method="POST", action="/patientForm/downloadfile">
+                            <input id="patient-detail-ctScanReport" type="hidden" name="filename">
+                            <button type="submit" class="btn btn-primary btn-sm">ctScanReport</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -203,6 +212,7 @@
                 <li class="page-item"><a class="page-link" onclick="nextForm(-1)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                 <li class="page-item"><input class="page-link" placeholder="Enter Form Number..." id="formNumber"></li>
                 <li class="page-item"><a class="page-link" onclick="nextForm(1)" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                <li class="page-item"><a class="page-link" onclick="fetchForms()"><span aria-hidden="true">Refresh Form</span></a></li>
             </ul></nav>
         </div>
     </div>
@@ -264,7 +274,7 @@
         else 
             currentForm = patientDetails.length - 1
         updateForm()
-        formNumberInput.setAttribute('placeholder', currentForm + '/' + (patientDetails.length - 1))
+        formNumberInput.setAttribute('placeholder', (currentForm + 1) + '/' + patientDetails.length)
     }
 
     function nextForm(number){
@@ -274,11 +284,11 @@
     function fetchForms(){
         console.log('Fetching form...')
         loadDoc('POST', '/patientForm/getAll', {userID: otherEmailId}, true, (request) => {
-            console.log(request.responseText)
+            // console.log(request.responseText)
             console.log('Feteched data')
             patientDetails = JSON.parse(request.responseText).result
             patientDetail = patientDetails[0]
-            console.log(patientDetail)
+            // console.log(patientDetail)
             updateForm()
         })
     }
@@ -307,6 +317,32 @@
         var patient_detail_historyOfSmoking = element('patient-detail-historyOfSmoking').innerHTML = patientDetails[currentForm].historyOfSmoking
         var patient_detail_duration_suffer = element('patient-detail-duration_suffer').innerHTML = patientDetails[currentForm].duration_suffer
         var patient_detail_chiefComplaints = element('patient-detail-chiefComplaints').innerHTML = patientDetails[currentForm].chiefComplaints
+
+        var patient_detail_photograph = element('patient-detail-photograph')        
+        patient_detail_photograph.value = patientDetails[currentForm].formID + '/photograph_' + patientDetails[currentForm].photograph
+        if(patientDetails[currentForm].photograph){
+            element('patient-detail-photograph-form').style.display = 'inline'
+        }else{
+            element('patient-detail-photograph-form').style.display = 'none'
+        }
+
+        var patient_detail_xRayReport = element('patient-detail-xRayReport')
+        patient_detail_xRayReport.value = patientDetails[currentForm].formID + '/xRayReport_' + patientDetails[currentForm].xRayReport
+        if(patientDetails[currentForm].xRayReport){
+            element('patient-detail-xRayReport-form').style.display = 'inline'
+        }else{
+            element('patient-detail-xRayReport-form').style.display = 'none'
+        }
+
+        var patient_detail_ctScanReport = element('patient-detail-ctScanReport')
+        patient_detail_ctScanReport.value = patientDetails[currentForm].formID +  '/ctScanReport_' + patientDetails[currentForm].ctScanReport
+        if(patientDetails[currentForm].ctScanReport){
+            element('patient-detail-ctScanReport-form').style.display = 'inline'
+        }else{
+            element('patient-detail-ctScanReport-form').style.display = 'none'
+        }
+
+
     }
     
 </script>

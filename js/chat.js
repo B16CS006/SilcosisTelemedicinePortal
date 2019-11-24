@@ -69,7 +69,7 @@ function replyToCall(data){
         if(!request.responseText.error){
             // Wait until initiator accept you offer and appearing a button
             disconnectCall.disabled = false
-            disconnectCall.innerHTML = 'Waiting... Click to End Call'
+            disconnectCall.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="">Waiting... Click to Disconnect</span>'
             disconnectCall.style.display = 'inline'
         }
     })

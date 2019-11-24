@@ -37,9 +37,9 @@ router.post('/create', ensureAuthenticated, (req, res) => {
                 var data = Object.assign({}, fields)
                 data.userID = req.user.email
                 data.formID = result.insertId
-                data.photograph = (files.photograph.name === '' || files.photograph.name === undefined || files.photograph.name === null) ? 0 : 1
-                data.xRayReport = (files.xRayReport.name === '' || files.xRayReport.name === undefined || files.xRayReport.name === null) ? 0 : 1
-                data.ctScanReport = (files.ctScanReport.name === '' || files.ctScanReport.name === undefined || files.ctScanReport.name === null) ? 0 : 1
+                data.photograph = files.photograph.name
+                data.xRayReport = files.xRayReport.name
+                data.ctScanReport = files.ctScanReport.name
                 // console.log('.....................................')
                 // console.log(data)
                 PatientDetailModel.updateForm(data, (err, result) => {
@@ -56,7 +56,7 @@ router.post('/create', ensureAuthenticated, (req, res) => {
 
             form.on('fileBegin', (name, file) => {
                 console.log('fileBegin ', + file)
-                file.path = uploadDir + '/' + name + '.' + file.name.split('.').pop()
+                file.path = uploadDir + '/' + name + '_' + file.name
             })
 
             form.on('file', (name, file) => {
@@ -68,10 +68,6 @@ router.post('/create', ensureAuthenticated, (req, res) => {
             res.send({ error: err })
         }
     })
-})
-
-router.post('/get', ensureAuthenticated, (req, res) => {
-    res.send('Incomplete')
 })
 
 router.post('/getAll', ensureAuthenticated, express.json({type: '*/*'}), (req, res) => {
@@ -99,6 +95,12 @@ router.post('/getAll', ensureAuthenticated, express.json({type: '*/*'}), (req, r
     } else {
         console.log('getAll unknow error')
     }
+})
+
+router.post('/downloadfile', ensureAuthenticated, (req, res) => {
+    var file = __dirname +  '/../uploads/' + req.body.filename
+    console.log('downloading file', file)
+    res.download(file, req.body.filename)
 })
 
 module.exports = router

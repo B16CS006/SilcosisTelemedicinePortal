@@ -61,6 +61,7 @@ app.use('/database', require('./routes/database'))
 app.use('/patientForm', require('./routes/patientForm'))
 
 app.use('/bundle', express.static(__dirname + '/js/bundle'))
+app.use('/uploads', express.static(__dirname + '/uploads'))
 
 
 

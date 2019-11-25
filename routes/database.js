@@ -54,22 +54,28 @@ var createDatabase = function(){
     createTables()
 }
 
-var deleteCalls = function() {
+var clearTable = function(table, callback) {
     console.log('deleting database')
-    execQuery('DELETE FROM table Calls', null, (error, result) => {console.log(error, result)})
+    execQuery('DELETE FROM TABLE ' + table, null, (error, result) => {
+        console.log(error, result)
+        callback({error, result})
+    })
 }
 
-var deleteTable = function(table){
+var deleteTable = function(table, callback){
     console.log('deleting table: ' + table)
-    execQuery('DROP TABLE ' + table, null, (error, result) => {console.log(error, result)})
+    execQuery('DROP TABLE ' + table, null, (error, result) => {
+        console.log(error, result)
+        callback({error, result})
+    })
 }
 
 router.get('/createDatabase', (req, res) => {
     res.render('database', {link: 'createDatabase'})
 })
 
-router.get('/deleteCalls', (req, res) => {
-    res.render('database', {link: 'deleteCalls'})
+router.get('/clearTable/:table', (req, res) => {
+    res.render('database', {link: 'clearTable/' + req.params.table})
 })
 
 router.get('/deleteTable/:table', (req, res) => {
@@ -85,10 +91,11 @@ router.post('/createDatabase', (req, res) => {
     }
 })
 
-router.post('/deleteCalls', (req, res) => {
+router.post('/clearTable/:table', (req, res) => {
     if(req.body.password == 'somerandompasswordIITJodhpur'){
-        deleteCalls()
-        res.send('done')
+        clearTable(req.params.table, (result) => {
+            res.send(result)
+        })
     }else{
         res.send('Incorrect Password')
     }
@@ -96,8 +103,9 @@ router.post('/deleteCalls', (req, res) => {
 
 router.post('/deleteTable/:table', (req, res) => {
     if(req.body.password === 'somerandompasswordIITJodhpur'){
-        deleteTable(req.params.table)
-        res.send('done')
+        deleteTable(req.params.table, (result) => {
+            res.send(result)
+        })
     }else{
         res.send('Incorrect Password')
     }

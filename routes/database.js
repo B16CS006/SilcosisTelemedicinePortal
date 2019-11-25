@@ -56,7 +56,7 @@ var createDatabase = function(){
 
 var clearTable = function(table, callback) {
     console.log('deleting database')
-    execQuery('DELETE FROM TABLE ' + table, null, (error, result) => {
+    execQuery('DELETE FROM ' + table, null, (error, result) => {
         console.log(error, result)
         callback({error, result})
     })
